@@ -1,56 +1,30 @@
 "use client";
 
+import { LoginSchema, loginSchema } from "@/app/_validatiors/register-validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
-const schema = z.object({
-  email: z.string().min(3, "Digite um email valido"),
-  password: z.string().min(3, "Digite uma senha valida"),
-});
-
-type FormSchema = z.infer<typeof schema>;
 
 export default function LoginPage() {
-  const [error, setError] = useState("");
-
+  // const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormSchema>({
-    mode: "onChange",
-    resolver: zodResolver(schema),
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
   });
 
-  async function handleForm(data: FormSchema) {
-    setError("");
-
-    try {
-      const response = await fetch("api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        setError(result.message);
-      } else {
-        console.log("User autenticado:", result.user);
-      }
-    } catch (error) {
-      console.log("Error", error);
-    }
+  async function handleForm(data: LoginSchema) {
+    console.log(data);
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-2">
       <form
-        className="flex flex-col justify-between border-1 border-zinc-700 p-5 rounded-xl h-[310px] w-[360px]"
+        className="flex flex-col justify-between border-1 border-zinc-700 p-5 rounded-xl h-[320px] w-[360px]"
         onSubmit={handleSubmit(handleForm)}
       >
         <div className="self-start">
@@ -61,7 +35,8 @@ export default function LoginPage() {
         </div>
 
         <div className="flex flex-col space-y-6">
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col">
+            <label className="text-sm font-bold text-zinc-300">Email</label>
             <input
               type="text"
               id="email"
@@ -76,7 +51,8 @@ export default function LoginPage() {
             )}
           </div>
 
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col">
+          <label className="text-sm font-bold text-zinc-300">Senha</label>
             <input
               type="password"
               placeholder="************"
@@ -90,8 +66,6 @@ export default function LoginPage() {
             )}
           </div>
         </div>
-
-        {error && <p className="text-red-500">{error}</p>}
 
         <button
           type="submit"
@@ -110,3 +84,24 @@ export default function LoginPage() {
     </div>
   );
 }
+
+
+// setError("");
+
+// try {
+//   const response = await fetch("api/login", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+
+//   const result = await response.json();
+
+//   if (!response.ok) {
+//     setError(result.message);
+//   } else {
+//     console.log("User autenticado:", result.user);
+//   }
+// } catch (error) {
+//   console.log("Error", error);
+// }

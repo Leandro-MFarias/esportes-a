@@ -6,6 +6,7 @@ import {
   registerSchema,
 } from "@/app/_validatiors/register-validators";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
@@ -19,7 +20,7 @@ export default function RegisterPage() {
 
   async function handleForm(data: RegisterSchema) {
     try {
-      await createAccount(data)
+      await createAccount(data);
     } catch (error) {
       console.log("error", error);
     }
@@ -93,6 +94,12 @@ export default function RegisterPage() {
           {isSubmitting ? "Enviando..." : "Fazer cadastro"}
         </button>
       </form>
+      <Link href={"/login"}>
+        <p className="text-zinc-400">
+          Já possui cadastro?
+          <span className="text-white font-bold"> Faça o Login</span>
+        </p>
+      </Link>
     </div>
   );
 }
