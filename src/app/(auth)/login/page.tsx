@@ -101,7 +101,7 @@ export default function LoginPage() {
           {isSubmitting ? "Entrando..." : "Entrar"}
         </button>
       </form>
-      <Link href={"/cadastro"}>
+      <Link href={"/register"}>
         <p className="text-zinc-400">
           Não possui cadastro?
           <span className="text-white font-bold"> Registre-se</span>
