@@ -1,10 +1,10 @@
 "use client";
 
-import { createAccount } from "@/app/_actions/registerAction";
+import { createAccount } from "@/app/(auth)/_actions/registerAction";
 import {
   RegisterSchema,
   registerSchema,
-} from "@/app/_validatiors/register-validators";
+} from "@/app/(auth)/_validatiors/register-validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";

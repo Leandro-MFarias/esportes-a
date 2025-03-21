@@ -1,14 +1,16 @@
 "use client";
 
-import { LoginSchema, loginSchema } from "@/app/_validatiors/register-validators";
+import { signIn } from "@/app/(auth)/_actions/loginAction";
+import {
+  LoginSchema,
+  loginSchema,
+} from "@/app/(auth)/_validatiors/register-validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 
-
 export default function LoginPage() {
-  // const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -18,7 +20,11 @@ export default function LoginPage() {
   });
 
   async function handleForm(data: LoginSchema) {
-    console.log(data);
+    try {
+      await signIn(data);
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   return (
@@ -52,7 +58,7 @@ export default function LoginPage() {
           </div>
 
           <div className="flex flex-col">
-          <label className="text-sm font-bold text-zinc-300">Senha</label>
+            <label className="text-sm font-bold text-zinc-300">Senha</label>
             <input
               type="password"
               placeholder="************"
@@ -84,24 +90,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-
-// setError("");
-
-// try {
-//   const response = await fetch("api/login", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(data),
-//   });
-
-//   const result = await response.json();
-
-//   if (!response.ok) {
-//     setError(result.message);
-//   } else {
-//     console.log("User autenticado:", result.user);
-//   }
-// } catch (error) {
-//   console.log("Error", error);
-// }
