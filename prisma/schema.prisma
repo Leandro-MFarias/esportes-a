@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id       String     @id @default(uuid())
-  userName String     @unique
-  email    String     @unique
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-  role Role
-  picture  String?
-  Comments Comment[]
-  Posts    Post[]
+  id        String    @id @default(uuid())
+  userName  String    @unique
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  role      Role      @default(MUGGLE)
+  picture   String?
+  Comments  Comment[]
+  Posts     Post[]
 }
 
 model Category {
-  id    String  @id
-  name  String  @unique
+  id    String @id
+  name  String @unique
   Posts Post[]
 }
 
@@ -33,21 +33,21 @@ model Comment {
   postId    String
   createdAt DateTime @default(now())
   updatedAt DateTime
-  Posts     Post    @relation(fields: [postId], references: [id])
+  Posts     Post     @relation(fields: [postId], references: [id])
   User      User     @relation(fields: [userId], references: [id])
 }
 
 model Post {
-  id         String     @id
+  id         String    @id
   title      String
   content    String
   userId     String
   categoryId String
-  createdAt  DateTime   @default(now())
+  createdAt  DateTime  @default(now())
   updatedAt  DateTime
   Comments   Comment[]
-  category   Category   @relation(fields: [categoryId], references: [id])
-  User       User       @relation(fields: [userId], references: [id])
+  category   Category  @relation(fields: [categoryId], references: [id])
+  User       User      @relation(fields: [userId], references: [id])
 }
 
 enum Role {
