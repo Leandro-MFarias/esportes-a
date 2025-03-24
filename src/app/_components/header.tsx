@@ -26,6 +26,7 @@ export async function Header() {
         user = await prisma.user.findUnique({
           where: { id: payload.userId as string },
           select: {
+            id: true,
             userName: true,
             picture: true,
           },
@@ -65,7 +66,7 @@ export async function Header() {
             <MenubarItem>
               <Link
                 className="hover:text-violet-600 transition duration-150 ease-in"
-                href="/profile"
+                href={`/profile/${user.id}`}
               >
                 Editar perfil
               </Link>
