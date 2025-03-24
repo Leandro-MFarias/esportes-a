@@ -14,7 +14,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const prisma = new PrismaClient();
 
-export async function NavBar() {
+export async function Header() {
   const sessionCookie = (await cookies()).get("session");
   let user = null;
 

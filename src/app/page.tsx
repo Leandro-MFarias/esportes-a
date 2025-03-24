@@ -1,15 +1,12 @@
-// import Link from "next/link";
-// import { LogoutButton } from "./_components/logout-button";
-import { NavBar } from "./_components/header";
+import { PlusIcon } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="h-screen">
-      <NavBar />
-
       <div className="flex justify-center pt-10">
-        <button className="bg-violet-700 px-10 py-3 rounded-2xl">
+        <button className="flex items-center text-zinc-600 hover:text-white transition duration-150 ease-in gap-1 cursor-pointer">
           Novo Post
+          <PlusIcon size={20} />
         </button>
       </div>
     </div>
