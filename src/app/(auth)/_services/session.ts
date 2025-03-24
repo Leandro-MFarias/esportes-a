@@ -1,11 +1,13 @@
 import "server-only";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient()
 interface SessionPayload extends JWTPayload {
   userId: string;
   expiresAt: Date;
-  // Other non-sensitive user data like role
+  role: string
 }
 
 const secretKey = process.env.AUTH_SECRET;
@@ -33,8 +35,15 @@ export async function decrypt(session: string | undefined = "") {
 
 // CREATE SESSION
 export async function createSession(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true }
+  })
+
+  if (!user) throw new Error("user nao encontrado")
+
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ userId, expiresAt, role: user.role });
 
   const cookieStore = await cookies();
   cookieStore.set("session", session, {
@@ -86,7 +95,6 @@ export async function updateSession() {
 }
 
 // Delete Session
-
 export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete("session");

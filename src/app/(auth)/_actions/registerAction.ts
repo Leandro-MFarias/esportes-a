@@ -28,6 +28,7 @@ export async function createAccount(data: RegisterSchema) {
       userName: parsedData.data.username,
       email: parsedData.data.email,
       password: hashPassword,
+      role: "MUGGLE",
     },
     select: {
       id: true,
