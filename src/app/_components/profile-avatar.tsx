@@ -4,7 +4,7 @@ import { convertBlobUrlToFile } from "@/lib/utils";
 import { uploadImage } from "@/supabase/storage/client";
 
 import { ChangeEvent, useRef, useState, useTransition } from "react";
-import { updateUserPicture } from "../_actions/user";
+import { updateUserPicture } from "../_actions/update-user";
 import { Input } from "@/components/ui/input";
 import { PencilIcon } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
