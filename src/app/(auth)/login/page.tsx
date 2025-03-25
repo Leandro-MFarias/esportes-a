@@ -5,6 +5,7 @@ import {
   LoginSchema,
   loginSchema,
 } from "@/app/(auth)/_validatiors/register-validators";
+import { ContainerInput } from "@/app/_components/form-inputs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
@@ -41,36 +42,23 @@ export default function LoginPage() {
         </div>
 
         <div className="flex flex-col space-y-6">
-          <div className="flex flex-col">
-            <label className="text-sm font-bold text-zinc-300">Email</label>
-            <input
-              type="text"
-              id="email"
-              placeholder="eu@exemplo.com"
-              className="bg-black border rounded-md border-zinc-800 p-2 outline-none"
-              {...register("email")}
-            />
-            {errors.email?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
+          <ContainerInput
+            label="Email"
+            type="text"
+            placeholder="eu@exemplo.com"
+            errors={errors}
+            register={register}
+            name="email"
+          />
 
-          <div className="flex flex-col">
-            <label className="text-sm font-bold text-zinc-300">Senha</label>
-            <input
-              type="password"
-              placeholder="************"
-              className="bg-black border rounded-md border-zinc-800 p-2 outline-none"
-              {...register("password")}
-            />
-            {errors.password?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
+          <ContainerInput
+            label="Senha"
+            type="password"
+            placeholder="************"
+            errors={errors}
+            register={register}
+            name="password"
+          />
         </div>
 
         <button
@@ -89,4 +77,27 @@ export default function LoginPage() {
       </Link>
     </div>
   );
+}
+
+{
+  /*
+
+          <div className="flex flex-col">
+            <label className="text-sm font-bold text-zinc-300">Email</label>
+            <input
+              type="text"
+              id="email"
+              placeholder="eu@exemplo.com"
+              className="bg-black border rounded-md border-zinc-800 p-2 outline-none"
+              {...register("email")}
+            />
+            {errors.email?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+
+*/
 }
