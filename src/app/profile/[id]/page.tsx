@@ -1,7 +1,6 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { ProfileAvatar } from "@/app/_components/profile-avatar";
 import { Input } from "@/components/ui/input";
 import { PrismaClient } from "@prisma/client";
-import { PencilIcon } from "lucide-react";
 interface PageProps {
   params: {
     id: string;
@@ -12,7 +11,8 @@ const prisma = new PrismaClient();
 
 export default async function ProfilePage({ params }: PageProps) {
   const { id } = await params;
-  let user = null;
+
+  let user;
 
   try {
     user = await prisma.user.findUnique({
@@ -27,24 +27,18 @@ export default async function ProfilePage({ params }: PageProps) {
     console.error("Erro profile", error);
   }
 
+
   return (
     <section
       key={id}
       className="border border-zinc-600 max-w-5xl mx-auto rounded-xl p-5 space-y-5"
     >
+      {/* AVATAR */}
       <div className="relative w-60">
-        <Avatar className="w-48 h-48">
-          <AvatarImage
-            src={`${
-              user?.picture === null ? "/profile-null.png" : user?.picture
-            }`}
-          />
-        </Avatar>
-        <div className="flex items-center justify-center absolute right-12 bottom-2 bg-zinc-900 rounded-full w-10 h-10">
-          <PencilIcon className="text-white" />
-        </div>
+          <ProfileAvatar userId={id} initialPicture={user?.picture || null} />
       </div>
 
+      {/* INPUTS */}
       <div className="flex justify-around">
         <div>
           <label htmlFor="">Seu nome</label>

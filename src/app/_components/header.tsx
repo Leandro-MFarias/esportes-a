@@ -52,7 +52,7 @@ export async function Header() {
           {user ? (
             <div className="flex gap-2 cursor-pointer">
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src={`${user.picture === null ? "/profile-null.png" : user.picture }`} />
               </Avatar>
 
               <p className="text-lg font-semibold">{user.userName}</p>
