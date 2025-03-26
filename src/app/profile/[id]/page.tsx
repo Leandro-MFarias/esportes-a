@@ -1,5 +1,5 @@
 import { EditProfile } from "../_components/edit-profile";
-import { ProfileAvatar } from "@/app/_components/profile-avatar";
+import { ProfileAvatar } from "@/app/profile/_components/profile-avatar";
 import { PrismaClient } from "@prisma/client";
 import { notFound } from "next/navigation";
 interface PageProps {
@@ -21,6 +21,7 @@ export default async function ProfilePage({ params }: PageProps) {
         userName: true,
         picture: true,
         email: true,
+        role: true,
       },
     });
 
@@ -33,7 +34,11 @@ export default async function ProfilePage({ params }: PageProps) {
       >
         {/* AVATAR */}
         <div className="relative w-60">
-          <ProfileAvatar userId={id} initialPicture={user?.picture || null} />
+          <ProfileAvatar
+            userId={id}
+            initialPicture={user?.picture || null}
+            roll={user.role}
+          />
         </div>
 
         {/* INPUTS */}
@@ -42,6 +47,6 @@ export default async function ProfilePage({ params }: PageProps) {
     );
   } catch (error) {
     console.error("Erro profile", error);
-    return <div>Alguma coisa dei errado, tente novamente mais tarde</div>
+    return <div>Alguma coisa dei errado, tente novamente mais tarde</div>;
   }
 }

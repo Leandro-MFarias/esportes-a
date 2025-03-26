@@ -4,23 +4,30 @@ import { convertBlobUrlToFile } from "@/lib/utils";
 import { uploadImage } from "@/supabase/storage/client";
 
 import { ChangeEvent, useRef, useState, useTransition } from "react";
-import { updateUserPicture } from "../_actions/update-user";
+import { updateUserPicture } from "../../_actions/update-user";
 import { Input } from "@/components/ui/input";
 import { PencilIcon } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 
 interface ProfileAvatarProps {
   userId: string;
   initialPicture: string | null;
+  roll: "MUGGLE" | "GOD";
 }
 
-export function ProfileAvatar({ userId, initialPicture }: ProfileAvatarProps) {
+export function ProfileAvatar({
+  userId,
+  initialPicture,
+  roll,
+}: ProfileAvatarProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(initialPicture);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   function handleImageChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
@@ -53,6 +60,7 @@ export function ProfileAvatar({ userId, initialPicture }: ProfileAvatarProps) {
           setImageUrl(updatedImage);
           setPreviewUrl(null);
           setIsEditing(false);
+          router.refresh();
         }
       } catch (error) {
         console.error("Erro updating user picture:", error);
@@ -61,8 +69,8 @@ export function ProfileAvatar({ userId, initialPicture }: ProfileAvatarProps) {
   }
 
   function cancelEdit() {
-    setPreviewUrl(null)
-    setIsEditing(false)
+    setPreviewUrl(null);
+    setIsEditing(false);
   }
 
   const displayImage = previewUrl || imageUrl || "/profile-null.png";
@@ -83,14 +91,22 @@ export function ProfileAvatar({ userId, initialPicture }: ProfileAvatarProps) {
         />
         <button
           onClick={() => imageInputRef.current?.click()}
-          className="absolute right-14 bottom-3 cursor-pointer bg-zinc-600 px-2 py-2 rounded-full transition duration-150 hover:bg-zinc-700 hover:scale-105"
+          className={`absolute bg-zinc-600 p-2 cursor-pointer rounded-full transition duration-150 hover:bg-zinc-700 hover:scale-105 ${
+            roll === "GOD" ? "right-14 bottom-3 " : "right-2 bottom-3"
+          }`}
         >
           <PencilIcon className="text-zinc-300" size={16} />
         </button>
 
         {/* UPLOAD */}
         {isEditing && (
-          <div className="absolute bottom-[11px] -right-[218px] flex gap-2">
+          <div
+            className={`absolute flex gap-2 ${
+              roll === "GOD"
+                ? "bottom-[11px] -right-[218px]"
+                : "-bottom-14"
+            }`}
+          >
             <button
               disabled={isPending}
               onClick={handleUploadImages}

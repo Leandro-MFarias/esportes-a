@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface EditProfileProps {
-  user: Pick<User, "id" | "userName" | "email">;
+  user: Pick<User, "id" | "userName" | "email" | "role">;
 }
 
 export function EditProfile({ user }: EditProfileProps) {
@@ -44,17 +44,33 @@ export function EditProfile({ user }: EditProfileProps) {
   return (
     <form
       onSubmit={handleSubmit(handleForm)}
-      className="flex items-center justify-around"
+      className={`flex ${
+        user.role === "GOD"
+          ? "items-center justify-around"
+          : "w-full flex-col self-start space-y-6"
+      }`}
     >
       <div>
         <label htmlFor="">Username</label>
-        <Input placeholder={user?.userName} {...register("userName")} />
-        {errors.userName && <p>{errors.userName.message}</p>}
+        <Input
+          className={`${user.role === "GOD" ? "" : "w-full"}`}
+          placeholder={user?.userName}
+          {...register("userName")}
+        />
+        {errors.userName && (
+          <p className="text-red-600 text-sm font-bold pl-2">
+            {errors.userName.message}
+          </p>
+        )}
       </div>
       <div>
         <label htmlFor="">Email</label>
-        <Input placeholder={user?.email} {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
+        <Input className="" placeholder={user?.email} {...register("email")} />
+        {errors.email && (
+          <p className="text-red-600 text-sm font-bold">
+            {errors.email.message}
+          </p>
+        )}
       </div>
 
       <button
