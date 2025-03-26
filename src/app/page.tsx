@@ -1,14 +1,29 @@
-import { PlusIcon } from "lucide-react";
+
+import { Header } from "./_components/header";
+import Link from "next/link";
+import { Posts } from "./_components/posts";
 
 export default function Home() {
   return (
-    <div className="h-screen">
-      <div className="flex justify-center pt-10">
-        <button className="flex items-center text-zinc-600 hover:text-white transition duration-150 ease-in gap-1 cursor-pointer">
-          Novo Post
-          <PlusIcon size={20} />
-        </button>
-      </div>
+    <div className="space-y-10">
+      <Header />
+      <section className="mx-auto max-w-7xl space-y-10">
+        <nav className="pl-2 flex items-center">
+          <ul className="flex gap-4 font-bold text-muted-foreground">
+            <li>Todos os Posts</li>
+            <li>Futebol</li>
+            <li>Basquete</li>
+            <li>Fórmula 1</li>
+            <li>Geral</li>
+          </ul>
+        </nav>
+
+        <div className="flex flex-wrap gap-8 justify-center">
+          <Link href="/">
+            <Posts />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
