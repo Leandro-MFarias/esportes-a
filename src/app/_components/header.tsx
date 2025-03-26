@@ -83,7 +83,7 @@ export async function Header() {
             <MenubarContent>
               <MenubarItem>
                 {user.role === "MUGGLE" ? (
-                  <SheetTrigger className="hover:text-violet-600 transition duration-150 ease-in">
+                  <SheetTrigger className="cursor-pointer hover:text-violet-600 transition duration-150 ease-in">
                     Perfil
                   </SheetTrigger>
                 ) : (

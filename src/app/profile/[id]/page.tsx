@@ -2,8 +2,8 @@ import { EditProfile } from "../_components/edit-profile";
 import { ProfileAvatar } from "@/app/profile/_components/profile-avatar";
 import { PrismaClient } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { PlusIcon } from "lucide-react";
 import { Header } from "@/app/_components/header";
+import { NewPost } from "../_components/create-post";
 interface PageProps {
   params: {
     id: string;
@@ -26,7 +26,6 @@ export default async function ProfilePage({ params }: PageProps) {
         role: true,
       },
     });
-
     if (!user) return notFound();
 
     return (
@@ -36,11 +35,10 @@ export default async function ProfilePage({ params }: PageProps) {
           key={id}
           className="flex flex-col border border-zinc-600 max-w-5xl mx-auto rounded-xl p-5 space-y-5"
         >
+          {/* Button Post */}
+          <NewPost />
+
           {/* AVATAR */}
-          <button className="flex items-center self-end text-zinc-600 hover:text-white transition duration-150 ease-in gap-1 cursor-pointer">
-            Novo Post
-            <PlusIcon size={20} />
-          </button>
           <div className="relative w-60">
             <ProfileAvatar
               userId={id}
