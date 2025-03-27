@@ -1,22 +1,18 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { PlusIcon } from "lucide-react";
+import { PostForm } from "./post-form";
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 export function NewPost() {
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,16 +26,7 @@ export function NewPost() {
           <DialogTitle>Novo Post</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-
-        <div className="space-y-3">
-          <Input placeholder="Title" className="max-w-2xs" />
-          <Textarea placeholder="Content" />
-        </div>
-        <DialogFooter>
-          <Button variant="outline" className="w-40 py-5 cursor-pointer">
-            Criar Post
-          </Button>
-        </DialogFooter>
+        <PostForm />
       </DialogContent>
     </Dialog>
   );

@@ -48,11 +48,10 @@ export async function Header() {
       console.error("Error fetching user data:", error);
     }
   }
-  if (!user) return
-  
+
   return (
     <Sheet>
-      <Menubar className="mx-auto mt-2 max-w-7xl border-zinc-700 justify-between px-4">
+      <Menubar className="mx-auto mt-2 max-w-7xl border-zinc-700 justify-between">
         <MenubarMenu>
           <MenubarTrigger>
             <Link href="/" className="text-xl font-bold">
@@ -102,20 +101,22 @@ export async function Header() {
           )}
         </MenubarMenu>
       </Menubar>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Editar Perfil</SheetTitle>
-          <SheetDescription></SheetDescription>
-        </SheetHeader>
-        <div className="px-3 h-screen flex flex-col items-center space-y-20">
-          <ProfileAvatar
-            userId={user.id}
-            initialPicture={user?.picture || null}
-            roll={user.role}
-          />
-          <EditProfile user={user} />
-        </div>
-      </SheetContent>
+      {user && (
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Editar Perfil</SheetTitle>
+            <SheetDescription></SheetDescription>
+          </SheetHeader>
+          <div className="px-3 h-screen flex flex-col items-center space-y-20">
+            <ProfileAvatar
+              userId={user.id}
+              initialPicture={user?.picture || null}
+              roll={user.role}
+            />
+            <EditProfile user={user} />
+          </div>
+        </SheetContent>
+      )}
     </Sheet>
   );
 }

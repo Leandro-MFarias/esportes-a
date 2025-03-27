@@ -1,6 +1,5 @@
 
 import { Header } from "./_components/header";
-import Link from "next/link";
 import { Posts } from "./_components/posts";
 
 export default function Home() {
@@ -19,9 +18,7 @@ export default function Home() {
         </nav>
 
         <div className="flex flex-wrap gap-8 justify-center">
-          <Link href="/">
             <Posts />
-          </Link>
         </div>
       </section>
     </div>
