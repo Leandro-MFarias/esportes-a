@@ -51,7 +51,7 @@ export async function Header() {
 
   return (
     <Sheet>
-      <Menubar className="mx-auto mt-2 max-w-7xl border-zinc-700 justify-between">
+      <Menubar className="px-4 mx-auto mt-2 max-w-7xl border-zinc-700 justify-between">
         <MenubarMenu>
           <MenubarTrigger>
             <Link href="/" className="text-xl font-bold">
