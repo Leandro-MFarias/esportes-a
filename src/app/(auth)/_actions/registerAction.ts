@@ -38,8 +38,4 @@ export async function createAccount(data: RegisterSchema) {
   await createSession(user.id)
 
   redirect("/");
-  return {
-    success: true,
-    userId: user.id,
-  };
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Dialog,
@@ -13,14 +13,14 @@ import { PostForm } from "./post-form";
 import { Category } from "@prisma/client";
 import { useState } from "react";
 
-interface NewPostProps{ 
-  userId: string
-  categories: Category[]
+interface NewPostProps {
+  userId: string;
+  categories: Category[];
 }
 
 export function NewPost({ userId, categories }: NewPostProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -34,7 +34,11 @@ export function NewPost({ userId, categories }: NewPostProps) {
           <DialogTitle>Novo Post</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <PostForm userId={userId} categories={categories} onClose={() => setIsOpen(false)} />
+        <PostForm
+          userId={userId}
+          categories={categories}
+          onClose={() => setIsOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

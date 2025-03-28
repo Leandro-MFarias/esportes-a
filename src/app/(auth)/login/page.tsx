@@ -78,26 +78,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-{
-  /*
-
-          <div className="flex flex-col">
-            <label className="text-sm font-bold text-zinc-300">Email</label>
-            <input
-              type="text"
-              id="email"
-              placeholder="eu@exemplo.com"
-              className="bg-black border rounded-md border-zinc-800 p-2 outline-none"
-              {...register("email")}
-            />
-            {errors.email?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-
-*/
-}

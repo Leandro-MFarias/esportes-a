@@ -17,14 +17,16 @@ import {
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface PostFormProps {
   userId: string;
   categories: Category[];
-  onClose: () => void
+  onClose: () => void;
 }
 
 export function PostForm({ userId, categories, onClose }: PostFormProps) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -48,7 +50,8 @@ export function PostForm({ userId, categories, onClose }: PostFormProps) {
       console.error("Error submitting form:", error);
       toast.error("Ocorreu um erro ao criar o post");
     } finally {
-      onClose()
+      onClose();
+      router.refresh();
     }
   }
 
