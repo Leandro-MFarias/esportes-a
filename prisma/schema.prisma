@@ -23,13 +23,13 @@ model User {
 }
 
 model Category {
-  id    String @id
+  id    String @id @default(uuid())
   name  String @unique
   Posts Post[]
 }
 
 model Comment {
-  id        String   @id
+  id        String   @id @default(uuid())
   content   String
   userId    String
   postId    String
@@ -40,7 +40,7 @@ model Comment {
 }
 
 model Post {
-  id         String    @id
+  id         String    @id @default(uuid())
   title      String
   content    String
   userId     String

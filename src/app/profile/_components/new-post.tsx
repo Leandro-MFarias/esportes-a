@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Dialog,
   DialogContent,
@@ -6,15 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import { PrismaClient } from "@prisma/client";
 import { PlusIcon } from "lucide-react";
 import { PostForm } from "./post-form";
+import { Category } from "@prisma/client";
+import { useState } from "react";
 
-// const prisma = new PrismaClient()
+interface NewPostProps{ 
+  userId: string
+  categories: Category[]
+}
 
-export function NewPost() {
+export function NewPost({ userId, categories }: NewPostProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <button className="self-end flex items-center text-zinc-600 hover:text-white transition duration-150 ease-in gap-1 cursor-pointer">
           Novo Post
@@ -26,7 +34,7 @@ export function NewPost() {
           <DialogTitle>Novo Post</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <PostForm />
+        <PostForm userId={userId} categories={categories} onClose={() => setIsOpen(false)} />
       </DialogContent>
     </Dialog>
   );
