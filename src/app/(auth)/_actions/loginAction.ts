@@ -3,7 +3,6 @@
 import { PrismaClient } from "@prisma/client";
 import { loginSchema, LoginSchema } from "../_validatiors/register-validators";
 import bcrypt from "bcryptjs";
-import { redirect } from "next/navigation";
 import { createSession } from "../_services/session";
 
 const prisma = new PrismaClient();
@@ -28,13 +27,26 @@ export async function signIn(data: LoginSchema) {
     }
   });
 
-  if (!user || !(await bcrypt.compare(parseData.data.password, user.password))) {
+  if (!user) {
     return {
       success: false,
-      message: "Email ou senha inválido"
+      message: "Email não cadastrado",
+      type: "email",
+    }
+  }
+
+  const passwordMatch = await bcrypt.compare(parseData.data.password, user.password);
+  if (!passwordMatch) {
+    return {
+      success: false,
+      message: "Senha incorreta",
+      type: "password",
     }
   }
 
   await createSession(user.id)
-  redirect("/")
+
+  return {
+    success: true,
+  }
 }

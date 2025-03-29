@@ -6,7 +6,6 @@ import {
   RegisterSchema,
 } from "../_validatiors/register-validators";
 import bcrypt from "bcryptjs";
-import { redirect } from "next/navigation";
 import { createSession } from "../_services/session";
 
 const prisma = new PrismaClient();
@@ -37,5 +36,7 @@ export async function createAccount(data: RegisterSchema) {
 
   await createSession(user.id)
 
-  redirect("/");
+  return {
+    success: true
+  }
 }

@@ -42,6 +42,7 @@ export default async function Home() {
       <Header />
       <section className="mx-auto max-w-7xl space-y-10">
         <div className="flex justify-between">
+          {/* CREATE A COMPONENT TO NAVBAR */}
           <nav className="pl-2 flex items-center">
             <ul className="flex gap-4 font-bold text-muted-foreground">
               <li>Todos os Posts</li>

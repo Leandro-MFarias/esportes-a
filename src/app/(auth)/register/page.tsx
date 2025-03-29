@@ -5,12 +5,14 @@ import {
   RegisterSchema,
   registerSchema,
 } from "@/app/(auth)/_validatiors/register-validators";
-import { ContainerInput } from "@/app/_components/form-inputs";
+import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -21,7 +23,11 @@ export default function RegisterPage() {
 
   async function handleForm(data: RegisterSchema) {
     try {
-      await createAccount(data);
+      const result = await createAccount(data);
+
+      if (result.success) {
+        router.push("/")
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -41,30 +47,49 @@ export default function RegisterPage() {
         </div>
 
         <div className="flex flex-1 flex-col space-y-6">
-          <ContainerInput
-            label="Username"
-            type="text"
-            placeholder="Nome de usuário"
-            name="username"
-            errors={errors}
-            register={register}
-          />
-          <ContainerInput
-            label="Email"
-            type="text"
-            placeholder="eu@exemplo.com"
-            name="email"
-            errors={errors}
-            register={register}
-          />
-          <ContainerInput
-            label="Senha"
-            type="password"
-            placeholder="************"
-            name="password"
-            errors={errors}
-            register={register}
-          />
+          <div className="flex flex-col space-y-1">
+            <label className="text-sm font-bold text-zinc-300">Username</label>
+            <Input
+              type="text"
+              placeholder="Nome de usuário"
+              className="outline-none"
+              {...register("username")}
+            />
+            {errors.username?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.username.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col space-y-1">
+            <label className="text-sm font-bold text-zinc-300">Email</label>
+            <Input
+              type="text"
+              placeholder="eu@exemplo.com"
+              className="outline-none"
+              {...register("email")}
+            />
+            {errors.email?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col space-y-1">
+            <label className="text-sm font-bold text-zinc-300">Senha</label>
+            <Input
+              type="password"
+              placeholder="************"
+              className="outline-none"
+              {...register("password")}
+            />
+            {errors.password?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <button

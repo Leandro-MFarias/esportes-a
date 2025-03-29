@@ -5,16 +5,19 @@ import {
   LoginSchema,
   loginSchema,
 } from "@/app/(auth)/_validatiors/register-validators";
-import { ContainerInput } from "@/app/_components/form-inputs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -22,7 +25,23 @@ export default function LoginPage() {
 
   async function handleForm(data: LoginSchema) {
     try {
-      await signIn(data);
+      const result = await signIn(data);
+
+      if (result.success) {
+        router.push("/");
+      } else {
+        if (result.type === "email") {
+          setError("email", {
+            type: "server",
+            message: result.message
+          })
+        } else if (result.type === "password") {
+          setError("password", {
+            type: "server",
+            message: result.message,
+          })
+        }
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -42,23 +61,35 @@ export default function LoginPage() {
         </div>
 
         <div className="flex flex-col space-y-6">
-          <ContainerInput
-            label="Email"
-            type="text"
-            placeholder="eu@exemplo.com"
-            errors={errors}
-            register={register}
-            name="email"
-          />
+          <div className="flex flex-col space-y-1">
+            <label className="text-sm font-bold text-zinc-300">Email</label>
+            <Input
+              type="Email"
+              placeholder="eu@exemplo.com"
+              className="outline-none"
+              {...register("email")}
+            />
+            {errors.email?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
 
-          <ContainerInput
-            label="Senha"
-            type="password"
-            placeholder="************"
-            errors={errors}
-            register={register}
-            name="password"
-          />
+          <div className="flex flex-col space-y-1">
+            <label className="text-sm font-bold text-zinc-300">Senha</label>
+            <Input
+              type="password"
+              placeholder="************"
+              className="outline-none"
+              {...register("password")}
+            />
+            {errors.password?.message && (
+              <p className="pl-1 text-red-500 text-sm font-bold">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
         </div>
 
         <button
