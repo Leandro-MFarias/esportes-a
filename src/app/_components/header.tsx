@@ -55,7 +55,7 @@ export async function Header() {
         <MenubarMenu>
           <MenubarTrigger>
             <Link href="/" className="text-xl font-bold">
-              BLOG
+              Esportes A
             </Link>
           </MenubarTrigger>
         </MenubarMenu>

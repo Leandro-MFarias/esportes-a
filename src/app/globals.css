@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-media --1x (min-width: 1060px);
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -41,6 +43,12 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* BREAKPOINTS */
+  --breakpoint-4x3: 434px;
+  --breakpoint-1x0: 920px;
+  --breakpoint-1x1: 1080px;
+  --breakpoint-1x4: 1413px;
 }
 
 :root {

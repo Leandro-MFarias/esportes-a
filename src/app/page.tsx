@@ -10,6 +10,7 @@ import { CategoryProvider } from "./_context/useCategoryContext";
 const prisma = new PrismaClient();
 
 export default async function Home() {
+
   const sessionCookie = (await cookies()).get("session");
   let user = null;
 
@@ -41,7 +42,7 @@ export default async function Home() {
           category: {
             select: {
               name: true,
-            }
+            },
           },
         },
       },
@@ -53,23 +54,23 @@ export default async function Home() {
 
   const noFilteredPosts = categories.flatMap((category) => category.Posts);
 
-
   return (
     <CategoryProvider noFilteredPosts={noFilteredPosts}>
       <div className="px-2 space-y-10">
         <Header />
         <section className="mx-auto max-w-[1396px] space-y-10 px-2">
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             {/* NAVBAR */}
-            <NavigationCatagory categories={categories} noFilteredPosts={noFilteredPosts} />
+            <NavigationCatagory
+              categories={categories}
+              noFilteredPosts={noFilteredPosts}
+            />
             {user && user.role === "GOD" && (
               <NewPost userId={user.id} categories={categories} />
             )}
           </div>
 
-          <div className="flex flex-wrap gap-8">
-            <Posts />
-          </div>
+          <Posts />
         </section>
       </div>
     </CategoryProvider>
