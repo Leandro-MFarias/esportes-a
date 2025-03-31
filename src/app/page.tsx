@@ -4,6 +4,8 @@ import { Posts } from "./_components/posts";
 import { cookies } from "next/headers";
 import { decrypt } from "./(auth)/_services/session";
 import { NewPost } from "./_components/new-post";
+import { NavigationCatagory } from "./_components/navigation-categories";
+import { CategoryProvider } from "./_context/useCategoryContext";
 
 const prisma = new PrismaClient();
 
@@ -28,39 +30,48 @@ export default async function Home() {
     }
   }
   const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      name: true,
+    include: {
+      Posts: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          likeCount: true,
+          viewCount: true,
+          category: {
+            select: {
+              name: true,
+            }
+          },
+        },
+      },
     },
     orderBy: {
       name: "asc",
     },
   });
 
-  return (
-    <div className="space-y-10">
-      <Header />
-      <section className="mx-auto max-w-7xl space-y-10">
-        <div className="flex justify-between">
-          {/* CREATE A COMPONENT TO NAVBAR */}
-          <nav className="pl-2 flex items-center">
-            <ul className="flex gap-4 font-bold text-muted-foreground">
-              <li>Todos os Posts</li>
-              <li>Futebol</li>
-              <li>Basquete</li>
-              <li>Fórmula 1</li>
-              <li>Geral</li>
-            </ul>
-          </nav>
-          {user && user.role === "GOD" && (
-            <NewPost userId={user.id} categories={categories} />
-          )}
-        </div>
+  const noFilteredPosts = categories.flatMap((category) => category.Posts);
 
-        <div className="flex flex-wrap gap-8 justify-center">
-          <Posts />
-        </div>
-      </section>
-    </div>
+
+  return (
+    <CategoryProvider noFilteredPosts={noFilteredPosts}>
+      <div className="space-y-10">
+        <Header />
+        <section className="mx-auto max-w-7xl space-y-10">
+          <div className="flex justify-between">
+            {/* NAVBAR */}
+            <NavigationCatagory categories={categories} noFilteredPosts={noFilteredPosts} />
+            {user && user.role === "GOD" && (
+              <NewPost userId={user.id} categories={categories} />
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-8 justify-center">
+            <Posts />
+          </div>
+        </section>
+      </div>
+    </CategoryProvider>
   );
 }

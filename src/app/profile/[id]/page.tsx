@@ -2,7 +2,6 @@ import { EditProfile } from "../_components/edit-profile";
 import { ProfileAvatar } from "@/app/profile/_components/profile-avatar";
 import { PrismaClient } from "@prisma/client";
 import { Header } from "@/app/_components/header";
-// import { NewPost } from "../_components/new-post";
 interface PageProps {
   params: {
     id: string;
