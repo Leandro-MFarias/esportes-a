@@ -56,9 +56,9 @@ export default async function Home() {
 
   return (
     <CategoryProvider noFilteredPosts={noFilteredPosts}>
-      <div className="space-y-10">
+      <div className="px-2 space-y-10">
         <Header />
-        <section className="mx-auto max-w-7xl space-y-10">
+        <section className="mx-auto max-w-[1396px] space-y-10 px-2">
           <div className="flex justify-between">
             {/* NAVBAR */}
             <NavigationCatagory categories={categories} noFilteredPosts={noFilteredPosts} />
@@ -67,7 +67,7 @@ export default async function Home() {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-8 justify-center">
+          <div className="flex flex-wrap gap-8">
             <Posts />
           </div>
         </section>

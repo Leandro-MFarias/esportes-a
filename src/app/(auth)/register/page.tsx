@@ -37,7 +37,7 @@ export default function RegisterPage() {
     <div className="flex flex-col items-center justify-center h-screen space-y-2">
       <form
         onSubmit={handleSubmit(handleForm)}
-        className="flex flex-col border-1 border-zinc-700 p-5 pb-10 rounded-xl h-[490px] w-[440px] space-y-6"
+        className="flex flex-col border-1 border-zinc-700 py-2 px-5 pb-10 rounded-xl h-[424px] w-[360px] space-y-4"
       >
         <div className="self-start">
           <h2 className="text-xl font-bold text-violet-700">Cadastre-se</h2>
@@ -46,7 +46,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <div className="flex flex-1 flex-col space-y-6">
+        <div className="flex flex-1 flex-col space-y-3">
           <div className="flex flex-col space-y-1">
             <label className="text-sm font-bold text-zinc-300">Username</label>
             <Input

@@ -50,7 +50,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-2">
       <form
-        className="flex flex-col justify-between border-1 border-zinc-700 p-5 rounded-xl h-[320px] w-[360px]"
+        className="flex flex-col justify-between border-1 border-zinc-700 p-5 rounded-xl h-[354px] w-[360px]"
         onSubmit={handleSubmit(handleForm)}
       >
         <div className="self-start">

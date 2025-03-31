@@ -24,7 +24,7 @@ export function Posts() {
   return (
     <>
       {postsToDisplay.map((post) => (
-        <Card key={post.id} className="w-[484px]">
+        <Card key={post.id} className="w-[434px]">
           <Link href={`/post/${post.id}`}>
             <CardHeader>
               <CardTitle className="text-3xl">{post.title}</CardTitle>

@@ -12,6 +12,7 @@ import { PlusIcon } from "lucide-react";
 import { PostForm } from "./post-form";
 import { Category } from "@prisma/client";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface NewPostProps {
   userId: string;
@@ -24,10 +25,10 @@ export function NewPost({ userId, categories }: NewPostProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="self-end flex items-center text-zinc-600 hover:text-white transition duration-150 ease-in gap-1 cursor-pointer">
+        <Button className="cursor-pointer">
           Novo Post
           <PlusIcon size={20} />
-        </button>
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-full max-w-2xl">
         <DialogHeader>

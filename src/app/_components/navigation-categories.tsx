@@ -29,14 +29,14 @@ export function NavigationCatagory({ categories, noFilteredPosts }: NavigationCa
 
   return (
     <nav className="pl-2 flex items-center">
-      <ScrollArea className="w-full ">
+      <ScrollArea className="w-full">
         <ul className="flex w-max gap-4">
           <li className="text-muted-foreground"> 
             <Button
               onClick={handleAllPostCLick}
               variant={allPosts === null ? "outline" : "default"}
               size="sm"
-              className="font-bold w-32 rounded-full cursor-pointer"
+              className="font-bold min-w-20 rounded-full cursor-pointer"
             >
               Todos
             </Button>
@@ -47,7 +47,7 @@ export function NavigationCatagory({ categories, noFilteredPosts }: NavigationCa
                 onClick={() => handleCategoryClick(category)}
                 variant={categoryButtonVariant(category)}
                 size="sm"
-                className="font-bold w-32 rounded-full cursor-pointer"
+                className="font-bold min-w-20 rounded-full cursor-pointer"
               >
                 {category.name}
               </Button>
