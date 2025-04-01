@@ -6,14 +6,15 @@ import { decrypt } from "./(auth)/_services/session";
 import { NewPost } from "./_components/new-post";
 import { NavigationCatagory } from "./_components/navigation-categories";
 import { CategoryProvider } from "./_context/useCategoryContext";
+import { getCategoriesDataCached } from "@/utils/getposts";
 
 const prisma = new PrismaClient();
 
 export default async function Home() {
-
   const sessionCookie = (await cookies()).get("session");
-  let user = null;
+  const { categories, noFilteredPosts } = await getCategoriesDataCached()
 
+  let user = null;
   if (sessionCookie) {
     try {
       const payload = await decrypt(sessionCookie.value);
@@ -30,29 +31,6 @@ export default async function Home() {
       console.error(error);
     }
   }
-  const categories = await prisma.category.findMany({
-    include: {
-      Posts: {
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          likeCount: true,
-          viewCount: true,
-          category: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-    },
-    orderBy: {
-      name: "asc",
-    },
-  });
-
-  const noFilteredPosts = categories.flatMap((category) => category.Posts);
 
   return (
     <CategoryProvider noFilteredPosts={noFilteredPosts}>
