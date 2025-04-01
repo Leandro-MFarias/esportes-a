@@ -2,7 +2,7 @@ import { EditProfile } from "../_components/edit-profile";
 import { ProfileAvatar } from "@/app/profile/_components/profile-avatar";
 import { PrismaClient } from "@prisma/client";
 import { Header } from "@/app/_components/header";
-interface PageProps {
+interface ProfilePageProps {
   params: {
     id: string;
   };
@@ -10,7 +10,7 @@ interface PageProps {
 
 const prisma = new PrismaClient();
 
-export default async function ProfilePage({ params }: PageProps) {
+export default async function ProfilePage({ params }: ProfilePageProps) {
   const { id } = params;
 
   try {
