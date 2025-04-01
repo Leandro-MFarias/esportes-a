@@ -11,7 +11,7 @@ interface PageProps {
 const prisma = new PrismaClient();
 
 export default async function ProfilePage({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = params;
 
   try {
     const user = await prisma.user.findUnique({

@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
-  const { id } = await params;
+  const { id } = params;
   const post = await getPostDataCached(id);
 
   if (!post) {
