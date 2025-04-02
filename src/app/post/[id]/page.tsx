@@ -1,5 +1,7 @@
 import { Header } from "@/app/_components/header";
+import { Avatar } from "@/components/ui/avatar";
 import { getCategoriesDataCached, getPostDataCached } from "@/utils/getposts";
+import { AvatarImage } from "@radix-ui/react-avatar";
 import { HeartIcon, MessageCircleIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -62,8 +64,9 @@ export default async function PostPage({ params }: ParamsProps) {
         {/* CONTENT */}
         <p className="whitespace-pre-wrap">{post.content}</p>
 
-        {/* LIKES COMENTARIOS E VIEWS */}
         <div className="w-full h-[1px] bg-zinc-800" />
+        {/* LIKES COMENTARIOS E VIEWS */}
+
         <div className="flex items-center gap-6">
           <div className="flex space-x-2">
             <HeartIcon />
@@ -72,6 +75,28 @@ export default async function PostPage({ params }: ParamsProps) {
           <div className="flex space-x-2">
             <MessageCircleIcon />
             <p>{post.Comments.length} comentário</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border border-zinc-800 max-w-6xl py-5 px-8 mx-auto mb-10 space-y-6">
+        <div className="space-y-3">
+          <h2>Comentários</h2>
+          <div className="w-full h-[1px] bg-zinc-800" />
+        </div>
+
+        {/* ONDE CHEGA OS COMENTARIOS */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage src="/profile-null.png" />
+            </Avatar>
+            <p className="text-lg font-semibold">LeHunt</p>
+          </div>
+          <div className="pl-10">
+            <p className="text-sm">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi fugiat itaque quas aliquid eveniet sint, perspiciatis ipsa beatae ab incidunt, quo explicabo rerum ut magnam quasi fugit dicta aliquam! Tempore.
+            </p>
           </div>
         </div>
       </section>
