@@ -1,6 +1,6 @@
 import { Header } from "@/app/_components/header";
 import { Avatar } from "@/components/ui/avatar";
-import { getCategoriesDataCached, getPostDataCached } from "@/utils/getposts";
+import { getCategoriesData, getPostData } from "@/utils/getposts";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { HeartIcon, MessageCircleIcon } from "lucide-react";
 import { Metadata } from "next";
@@ -11,7 +11,7 @@ type ParamsProps = {
 };
 
 export async function generateStaticParams() {
-  const { categories } = await getCategoriesDataCached();
+  const { categories } = await getCategoriesData();
   return categories.map(({ id }) => ({ id }));
 }
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   params,
 }: ParamsProps): Promise<Metadata> {
   const { id } = await params;
-  const post = await getPostDataCached(id);
+  const post = await getPostData(id);
 
   if (!post) {
     return { title: "Post não encontrado" };
@@ -33,7 +33,7 @@ export async function generateMetadata({
 
 export default async function PostPage({ params }: ParamsProps) {
   const resolved = (await params).id;
-  const post = await getPostDataCached(resolved);
+  const post = await getPostData(resolved);
   if (!post) return notFound();
 
   return (
