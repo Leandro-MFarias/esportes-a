@@ -42,16 +42,16 @@ export function PostForm({ userId, categories, onClose }: PostFormProps) {
   async function handleForm(data: PostSchema) {
     try {
       const result = await createPost(data, userId);
-      console.log(result);
+
       if (result?.success) {
         toast.success("Post Criado com sucesso.");
       }
+      router.refresh();
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Ocorreu um erro ao criar o post");
     } finally {
       onClose();
-      router.refresh();
     }
   }
 
