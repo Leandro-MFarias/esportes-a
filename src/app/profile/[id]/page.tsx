@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { Header } from "@/app/_components/header";
 
 type ParamsProps = {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 const prisma = new PrismaClient();
