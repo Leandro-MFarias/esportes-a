@@ -2,16 +2,15 @@ import { EditProfile } from "../_components/edit-profile";
 import { ProfileAvatar } from "@/app/profile/_components/profile-avatar";
 import { PrismaClient } from "@prisma/client";
 import { Header } from "@/app/_components/header";
-interface ProfilePageProps {
-  params: {
-    id: string;
-  };
+
+type ParamsProps = {
+  params: Promise<{ id: string }>
 }
 
 const prisma = new PrismaClient();
 
-export default async function ProfilePage({ params }: ProfilePageProps) {
-  const { id } = params;
+export default async function ProfilePage({ params }: ParamsProps) {
+  const { id } =  await params;
 
   try {
     const user = await prisma.user.findUnique({
@@ -24,7 +23,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         role: true,
       },
     });
-    if (!user) return 
+    if (!user) return;
 
     return (
       <div className="space-y-4">

@@ -2,21 +2,17 @@ import { getCategoriesDataCached, getPostDataCached } from "@/utils/getposts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-interface PostPageProps {
-  params: {
-    id: string;
-  };
+type ParamsProps = {
+  params: Promise<{ id: string }>
 }
 
 export async function generateStaticParams() {
   const { categories } = await getCategoriesDataCached();
-  return categories.map(({ id }) => id);
+  return categories.map(({ id }) => ({id}));
 }
 
-export async function generateMetadata({
-  params,
-}: PostPageProps): Promise<Metadata> {
-  const { id } = params;
+export async function generateMetadata({params}: ParamsProps): Promise<Metadata> {
+  const { id } = await params;
   const post = await getPostDataCached(id);
 
   if (!post) {
@@ -29,8 +25,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const { id } = params;
+export default async function PostPage({ params }: ParamsProps) {
+  const { id } = await params;
   const post = await getPostDataCached(id);
   if (!post) return notFound();
 
