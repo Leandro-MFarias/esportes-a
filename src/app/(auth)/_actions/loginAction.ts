@@ -14,39 +14,51 @@ export async function signIn(data: LoginSchema) {
     return {
       success: false,
       message: parseData.error.message,
-    }
+    };
   }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email: parseData.data.email,
-    },
-    select: {
-      id: true,
-      password: true,
-    }
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: parseData.data.email,
+      },
+      select: {
+        id: true,
+        password: true,
+      },
+    });
 
-  if (!user) {
+    if (!user) {
+      return {
+        success: false,
+        message: "Email não cadastrado",
+        type: "email",
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(
+      parseData.data.password,
+      user.password
+    );
+    if (!passwordMatch) {
+      return {
+        success: false,
+        message: "Senha incorreta",
+        type: "password",
+      };
+    }
+
+    await createSession(user.id);
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Erro ao realizar login: ", error)
+
     return {
       success: false,
-      message: "Email não cadastrado",
-      type: "email",
+      message: 'Ocorreu um erro ao processar sua solicitação. Tente novamente mais tarde.'
     }
-  }
-
-  const passwordMatch = await bcrypt.compare(parseData.data.password, user.password);
-  if (!passwordMatch) {
-    return {
-      success: false,
-      message: "Senha incorreta",
-      type: "password",
-    }
-  }
-
-  await createSession(user.id)
-
-  return {
-    success: true,
   }
 }
