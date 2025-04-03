@@ -1,7 +1,7 @@
 "use client";
 
 import { convertBlobUrlToFile } from "@/lib/utils";
-import { uploadImage } from "@/supabase/storage/client";
+import { deleteImage, uploadImage } from "@/supabase/storage/client";
 
 import { ChangeEvent, useRef, useState, useTransition } from "react";
 import { updateUserPicture } from "../../_actions/update-user";
@@ -44,6 +44,14 @@ export function ProfileAvatar({
 
     startTransition(async () => {
       const imageFile = await convertBlobUrlToFile(previewUrl);
+
+      if (imageUrl) {
+        const { error: deleteError } = await deleteImage(imageUrl)
+        if (deleteError) {
+          console.error("Erro ao deletar imagem: ", deleteError)
+          return
+        }
+      }
 
       const { imageUrl: updatedImage, error } = await uploadImage({
         file: imageFile,

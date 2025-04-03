@@ -10,11 +10,6 @@ type ParamsProps = {
   params: Promise<{ id: string }>;
 };
 
-// export async function generateStaticParams() {
-//   const { categories } = await getCategoriesDataCached();
-//   return categories.map(({ id }) => ({ id }));
-// }
-
 export async function generateMetadata({
   params,
 }: ParamsProps): Promise<Metadata> {
