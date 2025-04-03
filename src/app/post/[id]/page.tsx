@@ -39,9 +39,9 @@ export default async function PostPage({ params }: ParamsProps) {
   return (
     <div className="px-2 space-y-10">
       <Header />
-      <section className="border border-zinc-800 max-w-6xl py-5 px-8 mx-auto space-y-4">
+      <section className="flex flex-col border border-zinc-800 max-w-6xl py-5 px-8 mx-auto space-y-4">
         {/* QUEM E QUANDO */}
-        <div className="flex space-x-2 text-muted-foreground text-sm pl-2">
+        <div className="self-end flex space-x-2 text-muted-foreground text-sm pl-2">
           <p>{post.User.userName}</p>
           <span className="text-zinc-400">|</span>
           <p>
