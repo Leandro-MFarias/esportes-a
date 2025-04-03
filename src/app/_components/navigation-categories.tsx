@@ -50,10 +50,13 @@ export function NavigationCatagory({
     return selectedCategory?.id === category.id ? `default` : "outline";
   }
 
-  // mx-0 1x1:mx-auto
+  function categoryButtonAll() {
+    return allPosts === null ? "outline" : "default"
+  }
+
   return (
     <nav
-      className={`flex items-center mx-0 md:mx-auto`}
+      className={`flex items-center mx-0 `}
     >
       <div className="block md:hidden">
         <Select onValueChange={handleSelectChange}>
@@ -73,13 +76,13 @@ export function NavigationCatagory({
 
       <div className="md:max-w-[700px] 1x0:max-w-[880px] 1x1:max-w-[1040px] xl:max-w-6xl 2xl:max-w-7xl hidden md:block">
         <ScrollArea type="always" className="w-full rounded-4xl">
-          <ul className="flex w-max space-x-4 p-4">
+          <ul className="flex w-max space-x-2 p-4">
             <li className="text-muted-foreground">
               <Button
                 onClick={handleAllPostCLick}
-                variant={allPosts === null ? "outline" : "default"}
+                variant={categoryButtonAll()}
                 size="sm"
-                className="font-bold min-w-20 rounded-full cursor-pointer"
+                className="font-bold min-w-24 rounded-full cursor-pointer py-4"
               >
                 Todos
               </Button>
@@ -90,7 +93,7 @@ export function NavigationCatagory({
                   onClick={() => handleCategoryClick(category)}
                   variant={categoryButtonVariant(category)}
                   size="sm"
-                  className="font-bold min-w-20 rounded-full cursor-pointer"
+                  className="font-bold min-w-24 rounded-full cursor-pointer py-4"
                 >
                   {category.name}
                 </Button>
