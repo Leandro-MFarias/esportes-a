@@ -15,6 +15,9 @@ import { useCategory } from "../_context/useCategoryContext";
 export function Posts() {
   const { selectedCategory, allPosts } = useCategory();
 
+  console.log("[DEBUG] Selected Category:", selectedCategory);
+  console.log("[DEBUG] All Posts:", allPosts);
+
   const postsToDisplay = allPosts || selectedCategory?.Posts;
 
   if (!postsToDisplay) {
