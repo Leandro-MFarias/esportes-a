@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
+import { ArrowBigLeftIcon } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -33,13 +34,13 @@ export default function LoginPage() {
         if (result.type === "email") {
           setError("email", {
             type: "server",
-            message: result.message
-          })
+            message: result.message,
+          });
         } else if (result.type === "password") {
           setError("password", {
             type: "server",
             message: result.message,
-          })
+          });
         }
       }
     } catch (error) {
@@ -48,7 +49,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-2">
+    <div className="relative flex flex-col items-center justify-center h-screen space-y-2">
+      <Link
+        href="/"
+        className="absolute top-10 left-10 text-muted-foreground hover:text-zinc-100 hover:scale-110 transition duration-150 ease-in"
+      >
+        <ArrowBigLeftIcon size={30} />
+      </Link>
       <form
         className="flex flex-col justify-between border-1 border-zinc-700 p-5 rounded-xl h-[354px] w-[360px]"
         onSubmit={handleSubmit(handleForm)}
@@ -92,13 +99,16 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="bg-violet-700 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-violet-500 transition duration-150 ease-in"
-        >
-          {isSubmitting ? "Entrando..." : "Entrar"}
-        </button>
+        <div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="bg-violet-700 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-violet-500 transition duration-150 ease-in"
+          >
+            {isSubmitting ? "Entrando..." : "Entrar"}
+          </button>
+          
+        </div>
       </form>
       <Link href={"/register"}>
         <p className="text-zinc-400">

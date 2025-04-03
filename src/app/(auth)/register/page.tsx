@@ -7,12 +7,13 @@ import {
 } from "@/app/(auth)/_validatiors/register-validators";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowBigLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ export default function RegisterPage() {
       const result = await createAccount(data);
 
       if (result.success) {
-        router.push("/")
+        router.push("/");
       }
     } catch (error) {
       console.log("error", error);
@@ -34,7 +35,13 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-2">
+    <div className="relative flex flex-col items-center justify-center h-screen space-y-2">
+      <Link
+        href="/"
+        className="absolute top-10 left-10 text-muted-foreground hover:text-zinc-100 hover:scale-110 transition duration-150 ease-in"
+      >
+        <ArrowBigLeftIcon size={30} />
+      </Link>
       <form
         onSubmit={handleSubmit(handleForm)}
         className="flex flex-col border-1 border-zinc-700 py-2 px-5 pb-10 rounded-xl h-[424px] w-[360px] space-y-4"
