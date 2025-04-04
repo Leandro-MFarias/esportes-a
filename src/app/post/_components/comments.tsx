@@ -1,7 +1,7 @@
 import { Avatar } from "@/components/ui/avatar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { AvatarImage } from "@/components/ui/avatar";
-import { Form } from "./formGeneral";
+import { Form } from "./form-general";
 
 export function Comments() {
 

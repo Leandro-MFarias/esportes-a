@@ -4,7 +4,7 @@ import { getPostDataCached } from "@/utils/getposts";
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PostContent } from "../_components/postSection";
+import { PostContent } from "../_components/post-content";
 import { Comments } from "../_components/comments";
 import { incrementViewCout } from "../_actions/increment-action";
 

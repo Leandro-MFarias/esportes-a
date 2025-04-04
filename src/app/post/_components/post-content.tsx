@@ -1,6 +1,8 @@
-import { HeartIcon, MessageCircleIcon } from "lucide-react";
+import { MessageCircleIcon } from "lucide-react";
+import { LikeButton } from "./like-button";
 
 export interface Post {
+  id: string,
   title: string;
   content: string;
   likeCount: number;
@@ -51,8 +53,7 @@ export function PostContent({ post }: PostProps) {
 
       <div className="flex items-center gap-6">
         <div className="flex space-x-2">
-          <HeartIcon />
-          <p>{post.likeCount} curtidas</p>
+          <LikeButton postId={post.id} initialLikeCount={post.likeCount} />
         </div>
         <div className="flex space-x-2">
           <MessageCircleIcon />
