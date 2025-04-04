@@ -22,7 +22,7 @@ export function Posts() {
   }
 
   return (
-    <div className={`flex flex-wrap gap-8 justify-center 1x4:justify-start`}>
+    <div className={`mb-2 flex flex-wrap gap-8 justify-center 1x4:justify-start`}>
       {postsToDisplay.map((post) => (
         <Card key={post.id} className="w-[360px] 4x3:w-[434px]">
           <Link href={`/post/${post.id}`}>

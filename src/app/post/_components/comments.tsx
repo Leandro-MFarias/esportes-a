@@ -19,7 +19,7 @@ export function Comments() {
       </div>
 
       {/* ONDE CHEGA OS COMENTARIOS */}
-      <ScrollArea type="always" className="h-60 pr-4">
+      <ScrollArea type="always" className="h-96 pr-4">
         {/* UNICA */}
         <div className="flex flex-col pb-8">
           <div className="flex flex-col space-y-0.5">
@@ -29,7 +29,7 @@ export function Comments() {
               </Avatar>
               <p className="text-lg font-semibold">LeHunt</p>
             </div>
-            <div className="pl-10">
+            <div className="pl-12">
               <p className="text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
                 fugiat itaque quas aliquid eveniet sint, perspiciatis ipsa
@@ -41,12 +41,12 @@ export function Comments() {
               Responder
             </button>
           </div>
-          <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible className="pl-20">
             <AccordionItem value="item-1">
               <AccordionTrigger className="mb-2 text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
                 Ver respostas
               </AccordionTrigger>
-              <AccordionContent className="mx-auto max-w-[85%]">
+              <AccordionContent className="max-w-[85%]">
                 <div>
                   <div className="flex items-center gap-2">
                     <Avatar>
@@ -54,7 +54,7 @@ export function Comments() {
                     </Avatar>
                     <p className="text-lg font-semibold">LeHunt</p>
                   </div>
-                  <div className="pl-10">
+                  <div className="pl-12">
                     <p className="text-sm">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Commodi fugiat itaque quas aliquid eveniet sint,
