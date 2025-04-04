@@ -4,8 +4,9 @@ import { getPostDataCached } from "@/utils/getposts";
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PostSection } from "../_components/postSection";
+import { PostContent } from "../_components/post-content";
 import { Comments } from "../_components/comments";
+import { incrementViewCout } from "../_actions/increment-action";
 
 type ParamsProps = {
   params: Promise<{ id: string }>;
@@ -32,12 +33,14 @@ export default async function PostPage({ params }: ParamsProps) {
   const post = await getPostDataCached(resolved);
   if (!post) return notFound();
 
+  await incrementViewCout(post.id)
+
   return (
     <div className="px-2 space-y-10">
       <Header />
 
       {/* POST */}
-      <PostSection post={post} />
+      <PostContent post={post} />
 
       {/* COMMENTS */}
       <Comments />
