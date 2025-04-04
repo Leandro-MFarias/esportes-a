@@ -8,9 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { HeartIcon } from "lucide-react";
 import Link from "next/link";
 import { useCategory } from "../_context/useCategoryContext";
+import { LikeButton } from "../post/_components/like-button";
 
 export function Posts() {
   const { selectedCategory, allPosts } = useCategory();
@@ -22,9 +22,7 @@ export function Posts() {
   }
 
   return (
-    <div
-      className={`flex flex-wrap gap-8 justify-center 1x4:justify-start`}
-    >
+    <div className={`flex flex-wrap gap-8 justify-center 1x4:justify-start`}>
       {postsToDisplay.map((post) => (
         <Card key={post.id} className="w-[360px] 4x3:w-[434px]">
           <Link href={`/post/${post.id}`}>
@@ -40,8 +38,7 @@ export function Posts() {
             <div className="h-[1px] w-full bg-zinc-600" />
             <div className="flex justify-between w-full">
               <div className="flex space-x-2">
-                <HeartIcon />
-                <p>{post.likeCount}</p>
+                <LikeButton postId={post.id} initialLikeCount={post.likeCount} />
               </div>
               <p>{post.viewCount} visualização</p>
             </div>
