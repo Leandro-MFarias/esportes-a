@@ -7,8 +7,10 @@ export async function getPostData(id: string) {
   return await prisma.post.findUnique({
     where: { id },
     select: {
+      id: true,
       title: true,
       content: true,
+      viewCount: true,
       likeCount: true,
       createdAt: true,
       category: {

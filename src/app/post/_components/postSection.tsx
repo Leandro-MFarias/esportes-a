@@ -19,7 +19,7 @@ interface PostProps {
   post: Post
 }
 
-export function PostSection({ post }: PostProps) {
+export function PostContent({ post }: PostProps) {
   return (
     <section className="flex flex-col border border-zinc-800 max-w-6xl py-5 px-8 mx-auto space-y-4">
       {/* QUEM E QUANDO */}

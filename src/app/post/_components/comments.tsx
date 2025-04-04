@@ -15,6 +15,7 @@ export function Comments() {
       </div>
 
       {/* ONDE CHEGA OS COMENTARIOS */}
+
       <ScrollArea type="always" className="h-60 pr-4">
         {/* UNICA */}
         <div className="flex flex-col pb-8">
@@ -63,3 +64,4 @@ export function Comments() {
     </section>
   );
 }
+
