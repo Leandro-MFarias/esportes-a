@@ -2,6 +2,12 @@ import { Avatar } from "@/components/ui/avatar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { AvatarImage } from "@/components/ui/avatar";
 import { Form } from "./form-general";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export function Comments() {
   return (
@@ -16,23 +22,50 @@ export function Comments() {
       <ScrollArea type="always" className="h-60 pr-4">
         {/* UNICA */}
         <div className="flex flex-col pb-8">
-          <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/profile-null.png" />
-            </Avatar>
-            <p className="text-lg font-semibold">LeHunt</p>
+          <div className="flex flex-col space-y-0.5">
+            <div className="flex items-center gap-2">
+              <Avatar>
+                <AvatarImage src="/profile-null.png" />
+              </Avatar>
+              <p className="text-lg font-semibold">LeHunt</p>
+            </div>
+            <div className="pl-10">
+              <p className="text-sm">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
+                fugiat itaque quas aliquid eveniet sint, perspiciatis ipsa
+                beatae ab incidunt, quo explicabo rerum ut magnam quasi fugit
+                dicta aliquam! Tempore.
+              </p>
+            </div>
+            <button className="self-end pr-6 text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
+              Responder
+            </button>
           </div>
-          <div className="pl-10">
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              fugiat itaque quas aliquid eveniet sint, perspiciatis ipsa beatae
-              ab incidunt, quo explicabo rerum ut magnam quasi fugit dicta
-              aliquam! Tempore.
-            </p>
-          </div>
-          <button className="self-end text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
-            Responder
-          </button>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="mb-2 text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
+                Ver respostas
+              </AccordionTrigger>
+              <AccordionContent className="mx-auto max-w-[85%]">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Avatar>
+                      <AvatarImage src="/profile-null.png" />
+                    </Avatar>
+                    <p className="text-lg font-semibold">LeHunt</p>
+                  </div>
+                  <div className="pl-10">
+                    <p className="text-sm">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Commodi fugiat itaque quas aliquid eveniet sint,
+                      perspiciatis ipsa beatae ab incidunt, quo explicabo rerum
+                      ut magnam quasi fugit dicta aliquam! Tempore.
+                    </p>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
         {/* FIMMMMM */}
 
@@ -61,4 +94,3 @@ export function Comments() {
     </section>
   );
 }
-

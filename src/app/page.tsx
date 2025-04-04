@@ -34,7 +34,7 @@ export default async function Home() {
 
   return (
     <CategoryProvider noFilteredPosts={noFilteredPosts}>
-      <div className="px-2 space-y-10">
+      <div className="px-2 space-y-10 mb-10">
         <Header />
         <section className="mx-auto max-w-[1396px] space-y-10 px-2">
           <div className="flex items-center justify-between">
