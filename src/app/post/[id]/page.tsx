@@ -29,11 +29,11 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params }: ParamsProps) {
-  const resolved = (await params).id;
-  const post = await getPostDataCached(resolved);
+  const { id } = await params;
+  const post = await getPostDataCached(id);
   if (!post) return notFound();
 
-  await incrementViewCout(post.id)
+  await incrementViewCout(post.id);
 
   return (
     <div className="px-2 space-y-10">
@@ -43,7 +43,7 @@ export default async function PostPage({ params }: ParamsProps) {
       <PostContent post={post} />
 
       {/* COMMENTS */}
-      <Comments />
+      <Comments postId={id} initialComments={post.Comments} />
     </div>
   );
 }

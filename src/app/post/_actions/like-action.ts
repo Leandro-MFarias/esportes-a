@@ -26,7 +26,7 @@ export async function toggleLike(postId: string): Promise<ToggleLikeResult> {
     const payload = await decrypt(sessionCookie.value);
 
     if (!payload) {
-      return { success: false, message: "Sessã inválida" };
+      return { success: false, message: "Sessão inválida" };
     }
 
     const userId = payload.userId as string;
