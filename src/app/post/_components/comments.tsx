@@ -70,9 +70,6 @@ export function Comments({ postId, initialComments }: CommentsProps) {
                 <div className="pl-12">
                   <p className="text-sm">{comment.content}</p>
                 </div>
-                <button className="self-end pr-6 text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
-                  Responder
-                </button>
               </div>
             </div>
           ))
@@ -81,34 +78,4 @@ export function Comments({ postId, initialComments }: CommentsProps) {
       </ScrollArea>
     </section>
   );
-}
-
-{
-  /* <Accordion type="single" collapsible className="pl-20">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="mb-2 text-sm text-muted-foreground hover:text-zinc-100 transition durantion-110 cursor-pointer">
-                Ver respostas
-              </AccordionTrigger>
-              <AccordionContent className="max-w-[85%]">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <Avatar>
-                      <AvatarImage src="/profile-null.png" />
-                    </Avatar>
-                    <p className="text-lg font-semibold">LeHunt</p>
-                  </div>
-                  <div className="pl-12">
-                    <p className="text-sm">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Commodi fugiat itaque quas aliquid eveniet sint,
-                      perspiciatis ipsa beatae ab incidunt, quo explicabo rerum
-                      ut magnam quasi fugit dicta aliquam! Tempore.
-                    </p>
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion> 
-          
- */
 }
