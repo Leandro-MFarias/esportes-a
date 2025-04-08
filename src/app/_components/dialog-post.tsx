@@ -6,30 +6,22 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "lucide-react";
 import { PostForm } from "./post-form";
 import { Category } from "@prisma/client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
-interface NewPostProps {
-  userId: string;
+import { usePostForm } from "../_context/useFormPost";
+
+interface DialogProps {
+  userId: string
   categories: Category[];
 }
 
-export function NewPost({ userId, categories }: NewPostProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function DialogPost({ userId, categories }: DialogProps) {
+  const { isDialogOpen, setIsDialogOpen, editingPost } = usePostForm()
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button className="cursor-pointer">
-          Novo Post
-          <PlusIcon size={20} />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="w-full max-w-2xl">
         <DialogHeader>
           <DialogTitle>Novo Post</DialogTitle>
@@ -38,7 +30,8 @@ export function NewPost({ userId, categories }: NewPostProps) {
         <PostForm
           userId={userId}
           categories={categories}
-          onClose={() => setIsOpen(false)}
+          onClose={() => setIsDialogOpen(false)}
+          defaultValue={editingPost}
         />
       </DialogContent>
     </Dialog>

@@ -5,7 +5,7 @@ import { postSchema, PostSchema } from "../_validator/new-post";
 
 const prisma = new PrismaClient();
 
-export async function createPost(data: PostSchema, userId: string) {
+export async function createPost(data: PostSchema & { id?: string }, userId: string) {
   const validatedData = postSchema.safeParse(data);
 
   if (!validatedData.success) {
@@ -15,12 +15,14 @@ export async function createPost(data: PostSchema, userId: string) {
     };
   }
 
+  const { title, content, category, existingCategory, id } = validatedData.data
+
   let categoryId: string;
 
-  if (validatedData.data.existingCategory) {
-    categoryId = validatedData.data.existingCategory;
-  } else if (validatedData.data.category) {
-    const categoryName = validatedData.data.category.trim();
+  if (existingCategory) {
+    categoryId = existingCategory;
+  } else if (category) {
+    const categoryName = category.trim();
 
     const existingCategory = await prisma.category.findUnique({
       where: { name: categoryName },
@@ -44,18 +46,32 @@ export async function createPost(data: PostSchema, userId: string) {
     };
   }
 
-  const createPost = await prisma.post.create({
-    data: {
-      title: validatedData.data.title,
-      content: validatedData.data.content,
-      userId: userId,
-      categoryId: categoryId,
-      updatedAt: new Date(),
-    },
-  });
+  let post
+
+  if (id) {
+    post = await prisma.post.update({
+      where: { id },
+      data: {
+        title,
+        content,
+        categoryId,
+        updatedAt: new Date()
+      }
+    })
+  } else {
+    post = await prisma.post.create({
+      data: {
+        title,
+        content,
+        categoryId,
+        userId,
+        updatedAt: new Date()
+      }
+    })
+  }
 
   return { 
     success: true,
-    post: createPost
+    post: post
   }
 }

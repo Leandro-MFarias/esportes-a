@@ -23,9 +23,10 @@ interface PostFormProps {
   userId: string;
   categories: Category[];
   onClose: () => void;
+  defaultValue?: (Partial<PostSchema> & { id?: string }) | null
 }
 
-export function PostForm({ userId, categories, onClose }: PostFormProps) {
+export function PostForm({ userId, categories, onClose, defaultValue }: PostFormProps) {
   const router = useRouter();
   const {
     register,
@@ -35,23 +36,29 @@ export function PostForm({ userId, categories, onClose }: PostFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<PostSchema>({
     resolver: zodResolver(postSchema),
+    defaultValues: defaultValue ?? {
+      title: "",
+      category: "",
+      existingCategory: "",
+      content: "",
+    }
   });
 
   const existingCategory = watch("existingCategory");
 
   async function handleForm(data: PostSchema) {
     try {
-      const result = await createPost(data, userId);
+      const result = await createPost({...data, id: defaultValue?.id}, userId);
 
       if (result?.success) {
-        toast.success("Post Criado com sucesso.");
+        toast.success(defaultValue?.id ? "Post atualizado com sucesso!" : "Post Criado com sucesso.");
       }
-      router.refresh();
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Ocorreu um erro ao criar o post");
     } finally {
       onClose();
+      router.refresh();
     }
   }
 
