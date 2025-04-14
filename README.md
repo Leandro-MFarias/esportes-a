@@ -1,37 +1,68 @@
-<h1 align="center">Esportes A - Blog</h1>
+<h1 align="center">⚽ Esportes A - Blog</h1>
 
-<h2>📜 Descrição do Projeto</h2>
+<p align="center">
+Um blog moderno focado em esportes, feito com Next.js, Prisma e PostgreSQL.
+</p>
 
-<p align="justify">
+---
+
+## 📜 Descrição do Projeto
+
 Este projeto é um Blog criado para atender a uma necessidade real: oferecer a uma pessoa um espaço próprio para compartilhar ideias, experiências e construir sua rede. Enquanto o administrador tem controle para criar os posts, os demais usuários podem interagir curtindo e comentando.
-</p>
 
-<h2>Backend</h2>
-<p>
-Para o backend, utilizei o Next.js em conjunto com o banco de dados PostgreSQL, implementado através do Prisma ORM. 
-</p>
+---
 
-### Models
+## **🚀 Tecnologias Utilizadas**
 
-<p>
-Os modelos principais do banco de dados são definidos abaixo.
-</p>
+### Framework & Linguagens
 
-<p>
-<strong>1. User</strong></br>
-O modelo User representa os usuários da aplicação. Cada usuário pode criar comentários e curtir publicações, mas apenas usuários com o papel ADMIN podem criar ou editar os posts, fora outras permissões a mais. 
-</p>
+- **Next.js** (App Router + Server Actions)
+- **React 19**
+- **TypeScript 5**
+- **ESLint** (padronizaão e boas práticas)
+- **TailwindCSS**
+- **Shadcn/ui**
+- **lucide-react**
+- **Prisma ORM**
+- **PostgreSQL**
+- **jose** (geração e verificação de JWT)
+- **JWT (autenticação)**
+- **react-hook-form**
+- **Zod (validação)**
+- **bcryptjs (hash de senha)**
+- **Supabase Storage** (upload de imagens)
+
+---
+
+## 📦 Funcionalidades
+
+- Cadastro e login com JWT
+- Sessões persistentes e seguras via cookies
+- Criação e edição de posts (apenas ADMIN)
+- Curtir e comentar posts (usuários logados)
+- Atualização de perfil e avatar
+- Upload de imagens para o Supabase
+- Sistema de categorias para os posts
+- Controle de permissões com roles (`ADMIN` | `NORMAL`)
+- Revalidação de dados em tempo real (Server Actions)
+
+---
+
+## Backend
+
+### 🧩 Models Principais
+
+### 📌 User
 
 ```json
 {
-  "id": "f47ac10b0e02",
+  "id": "uuid",
   "userName": "admin_user",
   "email": "admin@example.com",
-  "password": "$2b$10$EIXgTQZ3vLJz9WxKqYpU.eZzZzZzZzZzZzZzZzZzZz", // Senha criptografada
-  "createdAt": "2023-11-01T10:00:00.000Z",
-  "updatedAt": "2023-11-01T10:00:00.000Z",
   "role": "ADMIN",
   "picture": "https://example.com/avatar.jpg",
+  "createdAt": "2023-11-01T12:00:00.000Z",
+  "updatedAt": "2023-11-01T12:00:00.000Z",
   "likedPostCount": 5,
   "Comments": [],
   "Posts": [],
@@ -39,37 +70,23 @@ O modelo User representa os usuários da aplicação. Cada usuário pode criar c
 }
 ```
 
-<p>
-<strong>2. Post</strong></br>
-O modelo Post representa as publicações feitas pelos usuários.
-</p>
-
+### 📌 Post
 ```json
 {
-  "id": "b2c3d4e5lmnopqrstuvw",
+  "id": "uuid",
   "title": "Introdução ao Prisma ORM",
-  "content": "O Prisma é uma ferramenta poderosa para interagir com bancos de dados...",
-  "userId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "content": "...",
+  "userId": "uuid",
+  "viewCount": 150,
+  "likeCount": 25,
   "createdAt": "2023-11-01T12:00:00.000Z",
   "updatedAt": "2023-11-01T12:00:00.000Z",
-  "viewCount": 150,
-  "likeCount": 25
 }
 ```
-
-<p>
-<strong>3. ROLE</strong></br>
-O enum Role define os papéis dos usuários na aplicação.
-</p>
-
+### 📌 Role (Enum)
 ```json
-{
-  "role": "ADMIN" || "NORMAL"
-}
+"ADMIN" | "NORMAL"
 ```
-
-<p>Existem outras tabelas, mas as principais são essas.</p>
-
 ## 🔐 Autenticação JWT
 
 <p align="justify">
@@ -78,72 +95,197 @@ A autenticação da aplicação é baseada em tokens JWT. Ao realizar o login, o
 Os cookies utilizados são httpOnly e secure, o que impede o acesso via JavaScript no client side e garante a transmissão segura via HTTPS.
 </p>
 
-<h4>Arquivo: <span style="color: #e50200">session.ts</span></h4>
+---
 
-<p>
-Esse arquivo centraliza toda a lógica de sessão do usuário utilizando JWT e cookies. Abaixo, uma explicação das principais funções:
-</p>
+### Principais funções (session.ts):
 
-#### 1. encrypt(payload)
-<p> 
-Cria um token JWT assinado com algoritmo HS256, com validade de 1 dia. Os dados inseridos no token são: 
-</p>
+- **encrypt(payload):** Cria um JWT com userId, expiresAt e role.
 
-• userId: ID do usuário autenticado
+- **decrypt(token):** Verifica e retorna os dados do token.
 
-• expiresAt: Data de expiração do token
+- **createSession(userId):** Cria e armazena o token nos cookies.
 
-• role: Papel do usuário (ex: ADMIN ou NORMAL)
+- **isSessionValid():** Verifica validade do token.
 
-#### 2. decrypt(session) 
-<p> 
-Verifica e decodifica um token de sessão. Se o token for válido, retorna os dados do payload. Caso contrário, retorna `undefined`. 
-</p>
+- **deleteSession():** Remove o cookie session.
 
-#### 3. createSession(userId)
-<p>
-Toda vez que o usuário for fazer o login ele cria uma nova sessão para o usuário, armazenando um token JWT no cookie. A sessão expira em 24 horas e contém as permissões do usuário. 
-</p>
+## ⚙️ Server Actions (Next.js)
 
-#### 4. isSessionValid()
-<p>
-Verifica se o cookie de sessão ainda está válido. Se for true a sessão vai continuar logada, caso for false o usuário será deslogado e redirecionado para a página de login.
-</p>
+A lógica de backend é protegida e isolada no servidor utilizando as **Server Actions** do Next.js App Router. Todo o processamento sensível — como autenticação, manipulação de dados e regras de negócio — ocorre exclusivamente no servidor.
 
-#### 5. deleteSession()
-<p>
-Quando o usuário clicar em Sair da conta ele remove a sessão do usuário deletando o cookie `session`.
-</p>
+---
 
-## ⚙️ Server Actions
-<p align="justify">
-Utilizo as <strong>Server Actions</strong> do Next.js para tratar diretamente no servidor as operações essenciais da aplicação, como autenticação, criação de posts, atualização de perfil, comentários, likes, entre outras. Isso garante mais segurança, performance e organização na lógica do backend.
-</p>
+### 📝 Registro
 
-### Registro de usuário
-• Validação de dados
-Os dados enviados pelo formulário são validados com o Zod para garantir que estão no formato esperado. Se a validação falhar, a função retorna o erro.
+- ✅ Validação de dados com **Zod**
+- 🔒 Hash de senha com **bcryptjs**
+- 🛠 Criação do usuário via **Prisma**
+- 🔐 Autenticação automática após cadastro (sessão JWT salva nos cookies)
 
-• Hash da senha
-A senha do usuário é criptografada usando bcryptjs antes de ser salva no banco de dados, garantindo segurança.
+---
 
-• Criação do usuário
-Utiliza o Prisma para inserir o novo usuário no banco. O campo role é definido como "NORMAL" por padrão.
+### 🔑 Login
 
-• Criação da sessão
-Após o registro, a função createSession é chamada automaticamente para autenticar o usuário e armazenar o token JWT nos cookies e já é redirecionado para a página inicial.
+- 🔎 Busca do usuário pelo **e-mail**
+- 🔒 Verificação da senha com **bcryptjs**
+- 🪪 Criação de sessão via JWT armazenada em cookies `HTTP-only` e `secure`
 
-### Login de usuário
-• Busca do usuário
-A função tenta encontrar o usuário no banco através do e-mail. Se não encontrar, retorna erro específico para o campo de e-mail.
+---
 
-• Validação da senha
-A senha enviada é comparada com a senha criptografada armazenada usando bcrypt.compare. Se estiver incorreta, retorna erro específico.
+### ✏️ Criação de Post
 
-• Sessão do usuário
-Se tudo estiver certo, é criada uma sessão com JWT e armazenada nos cookies, permitindo que o usuário acesse áreas autenticadas.
+- ✅ Validação dos dados com **Zod**
+- 🧠 Verificação se a categoria já existe (evita duplicação)
+- 📬 Criação do post com **Prisma**
+- 👤 Associação automática do post ao autor logado
+- 🔁 Revalidação do conteúdo em tempo real com `revalidatePath`
 
-• Tratamento de erro
-Se ocorrer qualquer erro inesperado, é exibida uma mensagem genérica para o usuário e o erro é logado no console.
+---
 
+### 🧑 Atualização de Perfil
 
+- ✅ Validação dos campos (opcional e individual)
+- ✏️ Atualização apenas dos dados enviados
+- 📦 Campos: `userName`, `bio`, `picture`, etc.
+
+---
+
+### 🖼 Atualização de Avatar
+
+- 📤 Upload da imagem compactada usando **browser-image-compression**
+- ☁️ Envio da imagem para o **Supabase Storage**
+- 🌐 Geração da URL pública da imagem
+- 🧽 Substituição do avatar anterior por um novo
+
+---
+
+### 💬 Comentários
+
+- 👥 Apenas usuários autenticados podem comentar
+- 💬 Comentário é associado ao post e ao autor
+- 🔁 Revalidação automática da página após novo comentário
+
+---
+
+### ❤️ Likes
+
+- 👍 Curtir e descurtir disponível para usuários logados
+- 🔄 Contador de likes atualizado em tempo real
+- 🔍 Verificação se o post já foi curtido anteriormente
+- 🧠 Sistema impede múltiplos likes do mesmo usuário em um único post
+
+---
+
+## 🧱 Middleware de Autenticação (Next.js)
+
+O middleware protege rotas privadas e redireciona usuários não autenticados para a página de login. Ele é executado automaticamente em todas as rotas, exceto arquivos estáticos e páginas públicas.
+
+---
+
+### 🔓 Rotas Públicas
+
+- / (home)
+- /login
+- /register
+- /post e qualquer rota que comece com /post/
+
+Essas rotas são acessíveis sem necessidade de autenticação.
+
+---
+
+### 🔒 Rotas Privadas
+
+- Verifica se a rota atual não é pública
+- Usa a função isSessionValid() para checar se há uma sessão válida
+- Caso não haja sessão, redireciona para /login
+- Se estiver autenticado, permite o acesso normalmente
+
+---
+
+### 🚦 Fluxo do Middleware
+
+- Verifica se a rota é pública (publicRoutes)
+- Permite acesso a rotas dinâmicas de post (/post/slug)
+- Se a rota for privada:
+  - Valida sessão com isSessionValid()
+  - Se inválida, redireciona para /login
+  - Se válida, segue normalmente
+
+---
+
+## 🎨 Frontend
+
+O frontend do projeto foi desenvolvido com foco em um **design moderno, limpo e funcional**, utilizando as melhores práticas de UX/UI para proporcionar uma experiência fluida, responsiva e intuitiva. Aliando a performance do Next.js com o ecossistema React 19 e a flexibilidade do TailwindCSS, a interface garante rapidez e beleza em qualquer dispositivo.
+
+---
+
+### 📄 Páginas Principais
+
+- `/` – Página inicial com feed de posts
+- `/login` – Tela de login moderna e objetiva
+- `/register` – Tela de cadastro com validação clara
+- `/profile` – Área administrativa exclusiva para o ADMIN
+- `/post/[id]` – Página detalhada do post com interações em tempo real
+
+---
+
+## Principais Componentes
+
+### 🧭 Navigation
+- Filtro por categoria (dropdown mobile, scroll desktop)
+- Gerenciado via contexto global
+
+### 🧩 Header
+- Exibe avatar e nome do usuário
+- Menu com opções de perfil para admin
+- Edição via `Sheet` para perfil normal
+
+### 📰 Posts
+- Grid responsivo com previews dos posts
+- Filtro por categoria ativa
+
+### 💬 DialogPost
+- Modal para criar ou editar posts
+- Controlado por contexto (`usePostForm`)
+
+### ✍️ PostForm
+- Validação com Zod + React-Hook-Form
+- Campos: título, categoria e conteúdo
+- Criação ou edição com feedback via `toast`
+
+---
+
+### ✨ Estilo Visual
+
+- Design moderno, minimalista e coerente
+- Estilização com **TailwindCSS** para agilidade e consistência
+- Componentes acessíveis e elegantes com **Shadcn/ui**
+- Ícones dinâmicos e leves com **lucide-react**
+- Transições suaves e animações discretas para uma experiência agradável
+
+---
+
+### 📥 Formulários e Validações
+
+- Gerenciamento eficiente com `react-hook-form`
+- Validação robusta e segura com `zod`
+- Feedback instantâneo para erros nos campos
+- UX otimizada para interações com teclado e dispositivos móveis
+
+---
+
+### 🔄 Revalidação em Tempo Real
+
+- Revalidação automática com `revalidatePath` após interações
+- Comentários e curtidas atualizados sem recarregar a página
+- Atualizações refletidas instantaneamente no frontend
+
+---
+
+### 📱 Responsividade
+
+- Layout 100% responsivo, adaptado a qualquer resolução
+- Navegação fluida tanto em desktop quanto em mobile
+- Elementos otimizados para toque e leitura em telas pequenas
+
+---
