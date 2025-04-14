@@ -286,7 +286,7 @@ Abaixo você pode visualizar algumas telas da aplicação:
 
 ## Tasks
 
-## ✅ **Checklist de Funcionalidades Concluídas**
+# ✅ **Checklist de Funcionalidades Concluídas**
 
 Aqui está tudo que já foi finalizado até agora no projeto **Esportes A - Blog**:
 
