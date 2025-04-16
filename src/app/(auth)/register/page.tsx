@@ -7,13 +7,15 @@ import {
 } from "@/app/(auth)/_validatiors/register-validators";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowBigLeftIcon } from "lucide-react";
+import { ArrowBigLeftIcon, EyeClosedIcon, EyeIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [isHide, setIsHide] = useState(true);
   const {
     register,
     handleSubmit,
@@ -85,17 +87,26 @@ export default function RegisterPage() {
           </div>
           <div className="flex flex-col space-y-1">
             <label className="text-sm font-bold text-zinc-300">Senha</label>
-            <Input
-              type="password"
-              placeholder="************"
-              className="outline-none"
-              {...register("password")}
-            />
-            {errors.password?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
-                {errors.password.message}
-              </p>
-            )}
+            <div className="relative">
+              <Input
+                type={`${isHide ? "password" : "text"}`}
+                placeholder="************"
+                className="outline-none"
+                {...register("password")}
+              />
+              {errors.password?.message && (
+                <p className="pl-1 text-red-500 text-sm font-bold">
+                  {errors.password.message}
+                </p>
+              )}
+              <div onClick={() => setIsHide(!isHide)}>
+                {isHide ? (
+                  <EyeIcon className="absolute right-2 top-1.5 text-muted-foreground" />
+                ) : (
+                  <EyeClosedIcon className="absolute right-2 top-1.5 text-muted-foreground" />
+                )}
+              </div>
+            </div>
           </div>
         </div>
 

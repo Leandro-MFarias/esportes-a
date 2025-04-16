@@ -11,10 +11,12 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
-import { ArrowBigLeftIcon } from "lucide-react";
+import { ArrowBigLeftIcon, EyeClosedIcon, EyeIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [isHide, setIsHide] = useState(true);
   const {
     register,
     handleSubmit,
@@ -85,17 +87,26 @@ export default function LoginPage() {
 
           <div className="flex flex-col space-y-1">
             <label className="text-sm font-bold text-zinc-300">Senha</label>
-            <Input
-              type="password"
-              placeholder="************"
-              className="outline-none"
-              {...register("password")}
-            />
-            {errors.password?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
-                {errors.password.message}
-              </p>
-            )}
+            <div className="relative">
+              <Input
+                type={`${isHide ? "password" : "text"}`}
+                placeholder="************"
+                className="outline-none"
+                {...register("password")}
+              />
+              {errors.password?.message && (
+                <p className="pl-1 text-red-500 text-sm font-bold">
+                  {errors.password.message}
+                </p>
+              )}
+              <div onClick={() => setIsHide(!isHide)}>
+                {isHide ? (
+                  <EyeIcon className="absolute right-2 top-1.5 text-muted-foreground" />
+                ) : (
+                  <EyeClosedIcon className="absolute right-2 top-1.5 text-muted-foreground" />
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -107,7 +118,6 @@ export default function LoginPage() {
           >
             {isSubmitting ? "Entrando..." : "Entrar"}
           </button>
-           
         </div>
       </form>
       <Link href={"/register"}>
