@@ -101,9 +101,9 @@ export default function LoginPage() {
               )}
               <div onClick={() => setIsHide(!isHide)}>
                 {isHide ? (
-                  <EyeIcon className="absolute right-2 top-1.5 text-muted-foreground" />
-                ) : (
                   <EyeClosedIcon className="absolute right-2 top-1.5 text-muted-foreground" />
+                ) : (
+                  <EyeIcon className="absolute right-2 top-1.5 text-muted-foreground" />
                 )}
               </div>
             </div>
