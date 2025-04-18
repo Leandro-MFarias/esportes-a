@@ -62,6 +62,9 @@ export async function getCategoriesData() {
             },
           },
         },
+        orderBy: {
+          createdAt: "desc"
+        }
       },
     },
     orderBy: {
