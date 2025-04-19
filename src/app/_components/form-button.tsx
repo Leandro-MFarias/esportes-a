@@ -12,6 +12,7 @@ interface ButtonProps {
     id: string
     title: string;
     content: string;
+    mediaUrl: string;
     existingCategory: string;
   };
 }

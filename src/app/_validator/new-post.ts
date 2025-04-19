@@ -6,7 +6,8 @@ export const postSchema = z
     content: z.string().min(10, "O conteúdo deve ter pelo menos 10 caracteres"),
     category: z.string().optional(),
     existingCategory: z.string().optional(),
-    id: z.string().optional()
+    id: z.string().optional(),
+    mediaUrl: z.any().optional(),
   })
   .refine(
     (data) => {

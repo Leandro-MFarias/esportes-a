@@ -10,6 +10,7 @@ export type CategoryWithPosts = Prisma.CategoryGetPayload<{
         id: true;
         title: true;
         content: true;
+        mediaUrl: true;
         likeCount: true;
         viewCount: true;
         category: {
@@ -26,6 +27,7 @@ export interface Post {
   id: string;
   title: string;
   content: string;
+  mediaUrl?: string | null | undefined;
   likeCount: number;
   viewCount: number;
   category: {

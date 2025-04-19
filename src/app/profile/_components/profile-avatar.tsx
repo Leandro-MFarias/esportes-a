@@ -46,10 +46,10 @@ export function ProfileAvatar({
       const imageFile = await convertBlobUrlToFile(previewUrl);
 
       if (imageUrl) {
-        const { error: deleteError } = await deleteImage(imageUrl)
+        const { error: deleteError } = await deleteImage(imageUrl);
         if (deleteError) {
-          console.error("Erro ao deletar imagem: ", deleteError)
-          return
+          console.error("Erro ao deletar imagem: ", deleteError);
+          return;
         }
       }
 
@@ -110,9 +110,7 @@ export function ProfileAvatar({
         {isEditing && (
           <div
             className={`absolute flex gap-2 ${
-              roll === "GOD"
-                ? "bottom-[11px] -right-[218px]"
-                : "-bottom-14"
+              roll === "GOD" ? "bottom-[11px] -right-[218px]" : "-bottom-14"
             }`}
           >
             <button
