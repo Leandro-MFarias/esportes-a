@@ -45,6 +45,7 @@ export function Posts({ role, userId, categories }: UserRole) {
                   id: post.id,
                   title: post.title,
                   content: post.content,
+                  mediaUrl: post.mediaUrl ?? "",
                   existingCategory: post.category.name 
                 }}
               >

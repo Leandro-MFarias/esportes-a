@@ -10,6 +10,7 @@ export async function getPostData(id: string) {
       id: true,
       title: true,
       content: true,
+      mediaUrl: true,
       viewCount: true,
       likeCount: true,
       createdAt: true,
@@ -54,6 +55,7 @@ export async function getCategoriesData() {
           id: true,
           title: true,
           content: true,
+          mediaUrl: true,
           likeCount: true,
           viewCount: true,
           category: {

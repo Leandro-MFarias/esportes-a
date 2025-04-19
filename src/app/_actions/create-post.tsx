@@ -5,7 +5,10 @@ import { postSchema, PostSchema } from "../_validator/new-post";
 
 const prisma = new PrismaClient();
 
-export async function createPost(data: PostSchema & { id?: string }, userId: string) {
+export async function createPost(
+  data: PostSchema & { id?: string; mediaUrl?: string },
+  userId: string
+) {
   const validatedData = postSchema.safeParse(data);
 
   if (!validatedData.success) {
@@ -15,7 +18,7 @@ export async function createPost(data: PostSchema & { id?: string }, userId: str
     };
   }
 
-  const { title, content, category, existingCategory, id } = validatedData.data
+  const { title, content, category, existingCategory, id, mediaUrl } = validatedData.data;
 
   let categoryId: string;
 
@@ -46,7 +49,7 @@ export async function createPost(data: PostSchema & { id?: string }, userId: str
     };
   }
 
-  let post
+  let post;
 
   if (id) {
     post = await prisma.post.update({
@@ -55,9 +58,10 @@ export async function createPost(data: PostSchema & { id?: string }, userId: str
         title,
         content,
         categoryId,
-        updatedAt: new Date()
-      }
-    })
+        mediaUrl,
+        updatedAt: new Date(),
+      },
+    });
   } else {
     post = await prisma.post.create({
       data: {
@@ -65,13 +69,14 @@ export async function createPost(data: PostSchema & { id?: string }, userId: str
         content,
         categoryId,
         userId,
-        updatedAt: new Date()
-      }
-    })
+        mediaUrl,
+        updatedAt: new Date(),
+      },
+    });
   }
 
-  return { 
+  return {
     success: true,
-    post: post
-  }
+    post: post,
+  };
 }
