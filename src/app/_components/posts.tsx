@@ -54,7 +54,7 @@ export function Posts({ role, userId, categories }: UserRole) {
             )}
             <Link href={`/post/${post.id}`}>
               <CardHeader>
-                <CardTitle className="text-3xl">{post.title}</CardTitle>
+                <CardTitle className="text-3xl max-w-[370px]">{post.title}</CardTitle>
                 <CardDescription>{post.category.name}</CardDescription>
               </CardHeader>
               <CardContent className="leading-7 line-clamp-4 mt-1">

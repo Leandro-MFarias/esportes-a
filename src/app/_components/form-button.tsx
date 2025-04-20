@@ -35,7 +35,7 @@ export function FormButton({ variant, type, postToEdit, children }: ButtonProps)
       className={`cursor-pointer ${
         type === "home"
           ? ""
-          : "w-[30px] h-7 absolute top-7 right-2 sm:right-10 text-muted-foreground"
+          : "w-[30px] h-7 absolute top-7 right-2 sm:right-3 text-muted-foreground"
       }`}
       onClick={handleEditingPost}
     >
