@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface EditProfileProps {
-  user: Pick<User, "id" | "userName" | "email" | "role">;
+  user: Pick<User, "id" | "userName" | "email" >;
 }
 
 export function EditProfile({ user }: EditProfileProps) {
