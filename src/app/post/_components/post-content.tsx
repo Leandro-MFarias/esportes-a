@@ -42,11 +42,11 @@ export function PostContent({ post }: PostProps) {
       </div>
 
       {/* TITLE E CATEGORY */}
-      <div>
+      <div className="space-y-2">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
           {post.title}
         </h1>
-        <p className="pl-3 text-muted-foreground">{post.category.name}</p>
+        <p className="pl-1.5 text-muted-foreground">{post.category.name}</p>
       </div>
 
       {/* CONTENT */}

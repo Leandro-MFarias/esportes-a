@@ -46,7 +46,6 @@ export async function getPostData(id: string) {
   });
 }
 
-
 export async function getCategoriesData() {
   const categories = await prisma.category.findMany({
     include: {
@@ -65,21 +64,22 @@ export async function getCategoriesData() {
           },
         },
         orderBy: {
-          createdAt: "desc"
-        }
+          createdAt: "desc",
+        },
       },
     },
     orderBy: {
       name: "asc",
     },
   });
+  
   const noFilteredPosts = categories.flatMap((category) => category.Posts);
 
   return {
     categories,
     noFilteredPosts,
-  }
+  };
 }
 
 export const getPostDataCached = cache(getPostData);
-export const getCategoriesDataCached = cache(getCategoriesData)
+export const getCategoriesDataCached = cache(getCategoriesData);
