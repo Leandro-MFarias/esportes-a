@@ -4,9 +4,9 @@ import { MetadataRoute } from "next";
 export const revalidate = 604800; 
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { noFilteredPosts } = await getCategoriesDataCached();
+  const { recent } = await getCategoriesDataCached();
 
-  const postEntries: MetadataRoute.Sitemap = noFilteredPosts.map((post) => ({
+  const postEntries: MetadataRoute.Sitemap = recent.map((post) => ({
     url: `${process.env.NEXT_PUBLIC_BASE_URL}/post/${post.id}`,
   }));
 
