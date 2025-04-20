@@ -22,7 +22,7 @@ export function DialogPost({ userId, categories }: DialogProps) {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogContent className="w-full max-w-2xl">
+      <DialogContent className="w-full sm:min-w-2xl">
         <DialogHeader>
           <DialogTitle>
             {editingPost?.id ? "Editar Post" : "Criar Post"}

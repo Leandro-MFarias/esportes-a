@@ -154,7 +154,7 @@ export function PostForm({
           }
           value={existingCategory}
         >
-          <SelectTrigger className="w-[288px]">
+          <SelectTrigger>
             <SelectValue placeholder="Existing category" />
           </SelectTrigger>
           <SelectContent>
