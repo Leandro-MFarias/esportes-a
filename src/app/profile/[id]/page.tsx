@@ -37,7 +37,6 @@ export default async function ProfilePage({ params }: ParamsProps) {
             <ProfileAvatar
               userId={id}
               initialPicture={user?.picture || null}
-              roll={user.role}
             />
           </div>
 
