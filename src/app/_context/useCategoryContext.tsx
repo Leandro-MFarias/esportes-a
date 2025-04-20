@@ -46,10 +46,10 @@ const CategoryContext = createContext<CategoryContextType | undefined>(
   undefined
 );
 
-export function CategoryProvider({ children, noFilteredPosts }: { children: ReactNode; noFilteredPosts: Post[] }) {
+export function CategoryProvider({ children, recent }: { children: ReactNode; recent: Post[] }) {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryWithPosts | null>(null);
-  const [allPosts, setAllPosts] = useState<Post[] | null>(noFilteredPosts);
+  const [allPosts, setAllPosts] = useState<Post[] | null>(recent);
 
   return (
     <CategoryContext.Provider

@@ -17,12 +17,12 @@ import {
 
 interface NavigationCatagoriesProps {
   categories: CategoryWithPosts[];
-  noFilteredPosts: Post[];
+  recent: Post[];
 }
 
 export function NavigationCatagory({
   categories,
-  noFilteredPosts,
+  recent,
 }: NavigationCatagoriesProps) {
   const { selectedCategory, setSelectedCategory, allPosts, setAllPosts } =
     useCategory();
@@ -33,7 +33,7 @@ export function NavigationCatagory({
   }
 
   function handleAllPostCLick() {
-    setAllPosts(noFilteredPosts);
+    setAllPosts(recent);
     setSelectedCategory(null);
   }
 

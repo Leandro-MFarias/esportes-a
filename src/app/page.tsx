@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 
 export default async function Home() {
   const sessionCookie = (await cookies()).get("session");
-  const { categories, noFilteredPosts } = await getCategoriesDataCached();
+  const { categories, recent } = await getCategoriesDataCached();
 
   let user = null;
   if (sessionCookie) {
@@ -35,7 +35,7 @@ export default async function Home() {
   }
 
   return (
-    <CategoryProvider noFilteredPosts={noFilteredPosts}>
+    <CategoryProvider recent={recent}>
       <div className="px-2 space-y-10 mb-10">
         <Header />
         <PostFormProvider>
@@ -44,7 +44,7 @@ export default async function Home() {
               {/* NAVBAR */}
               <NavigationCatagory
                 categories={categories}
-                noFilteredPosts={noFilteredPosts}
+                recent={recent}
               />
               {user && user.role === "GOD" && (
                 <FormButton variant={"default"} type={"home"}>

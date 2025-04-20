@@ -57,6 +57,7 @@ export async function getCategoriesData() {
           mediaUrl: true,
           likeCount: true,
           viewCount: true,
+          createdAt: true,
           category: {
             select: {
               name: true,
@@ -72,12 +73,20 @@ export async function getCategoriesData() {
       name: "asc",
     },
   });
-  
-  const noFilteredPosts = categories.flatMap((category) => category.Posts);
+
+  const recent = categories.map((category) => {
+    if (category.Posts.length === 0) return null;
+
+    return {
+      ...category.Posts[0],
+      categoryId: category.id,
+      categoryName: category.name,
+    };
+  }).filter(post => post !== null)
 
   return {
     categories,
-    noFilteredPosts,
+    recent,
   };
 }
 
