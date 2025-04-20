@@ -13,13 +13,11 @@ import { useRouter } from "next/navigation";
 interface ProfileAvatarProps {
   userId: string;
   initialPicture: string | null;
-  roll: "MUGGLE" | "GOD";
 }
 
 export function ProfileAvatar({
   userId,
   initialPicture,
-  roll,
 }: ProfileAvatarProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(initialPicture);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -99,9 +97,7 @@ export function ProfileAvatar({
         />
         <button
           onClick={() => imageInputRef.current?.click()}
-          className={`absolute bg-zinc-600 p-2 cursor-pointer rounded-full transition duration-150 hover:bg-zinc-700 hover:scale-105 ${
-            roll === "GOD" ? "right-14 bottom-3 " : "right-2 bottom-3"
-          }`}
+          className={`absolute bg-zinc-600 p-2 cursor-pointer rounded-full transition duration-150 hover:bg-zinc-700 hover:scale-105 right-2 bottom-3`}
         >
           <PencilIcon className="text-zinc-300" size={16} />
         </button>
@@ -109,9 +105,7 @@ export function ProfileAvatar({
         {/* UPLOAD */}
         {isEditing && (
           <div
-            className={`absolute flex gap-2 ${
-              roll === "GOD" ? "bottom-[11px] -right-[218px]" : "-bottom-14"
-            }`}
+            className={`absolute flex gap-2 -bottom-14`}
           >
             <button
               disabled={isPending}

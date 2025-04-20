@@ -81,18 +81,9 @@ export async function Header() {
           {user && (
             <MenubarContent>
               <MenubarItem>
-                {user.role === "MUGGLE" ? (
-                  <SheetTrigger className="cursor-pointer hover:text-violet-600 transition duration-150 ease-in">
-                    Perfil
-                  </SheetTrigger>
-                ) : (
-                  <Link
-                    className="hover:text-violet-600 transition duration-150 ease-in"
-                    href={`/profile/${user.id}`}
-                  >
-                    Admin Page
-                  </Link>
-                )}
+                <SheetTrigger className="cursor-pointer hover:text-violet-600 transition duration-150 ease-in">
+                  Perfil
+                </SheetTrigger>
               </MenubarItem>
               <MenubarItem>
                 <LogoutButton />
@@ -111,7 +102,6 @@ export async function Header() {
             <ProfileAvatar
               userId={user.id}
               initialPicture={user?.picture || null}
-              roll={user.role}
             />
             <EditProfile user={user} />
           </div>

@@ -84,7 +84,7 @@ export function NavigationCatagory({
                 size="sm"
                 className="font-bold min-w-24 rounded-full cursor-pointer py-4"
               >
-                Todos
+                Recentes
               </Button>
             </li>
             {categories.map((category) => (

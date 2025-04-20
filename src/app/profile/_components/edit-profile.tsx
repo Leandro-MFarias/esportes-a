@@ -44,16 +44,12 @@ export function EditProfile({ user }: EditProfileProps) {
   return (
     <form
       onSubmit={handleSubmit(handleForm)}
-      className={`flex ${
-        user.role === "GOD"
-          ? "items-center justify-around"
-          : "w-full flex-col self-start space-y-6"
-      }`}
+      className={`flex w-full flex-col self-start space-y-6`}
     >
       <div>
         <label htmlFor="">Username</label>
         <Input
-          className={`${user.role === "GOD" ? "" : "w-full"}`}
+          className={`w-full`}
           placeholder={user?.userName}
           {...register("userName")}
         />
