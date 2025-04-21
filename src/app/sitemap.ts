@@ -24,7 +24,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...postEntries,
   ];
 }
-
-// lastModified: new Date(categories.updatedAt),
-// changeFrequency:,
-// priority:,

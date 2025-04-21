@@ -47,11 +47,11 @@ export function NavigationCatagory({
   }
 
   function categoryButtonVariant(category: CategoryWithPosts) {
-    return selectedCategory?.id === category.id ? `default` : "outline";
+    return selectedCategory?.id === category.id ? `default` : "secondary";
   }
 
   function categoryButtonAll() {
-    return allPosts === null ? "outline" : "default"
+    return allPosts === null ? "secondary" : "default"
   }
 
   return (
@@ -75,14 +75,14 @@ export function NavigationCatagory({
       </div>
 
       <div className="md:max-w-[700px] 1x0:max-w-[880px] 1x1:max-w-[1040px] xl:max-w-6xl 2xl:max-w-7xl hidden md:block">
-        <ScrollArea type="always" className="w-full rounded-4xl">
+        <ScrollArea type="always" className="w-full ">
           <ul className="flex w-max space-x-2 p-4">
             <li className="text-muted-foreground">
               <Button
                 onClick={handleAllPostCLick}
                 variant={categoryButtonAll()}
                 size="sm"
-                className="font-bold min-w-24 rounded-full cursor-pointer py-4"
+                className={`font-semibold min-w-24 rounded-md cursor-pointer py-4 ${allPosts === null && "text-white"}`}
               >
                 Recentes
               </Button>
@@ -93,7 +93,7 @@ export function NavigationCatagory({
                   onClick={() => handleCategoryClick(category)}
                   variant={categoryButtonVariant(category)}
                   size="sm"
-                  className="font-bold min-w-24 rounded-full cursor-pointer py-4"
+                  className={`font-semibold min-w-24 rounded-md cursor-pointer py-3 ${selectedCategory?.id !== category.id && "text-white"}`}
                 >
                   {category.name}
                 </Button>
