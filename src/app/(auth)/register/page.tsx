@@ -46,16 +46,16 @@ export default function RegisterPage() {
       </Link>
       <form
         onSubmit={handleSubmit(handleForm)}
-        className="flex flex-col border-1 border-zinc-700 py-2 px-5 pb-10 rounded-xl h-[424px] w-[360px] space-y-4"
+        className="flex flex-col border-1 border-zinc-700 py-2 px-5 pb-10 rounded-xl h-[424px] w-[360px] sm:w-[420px] space-y-4"
       >
         <div className="self-start">
-          <h2 className="text-xl font-bold text-violet-700">Cadastre-se</h2>
+          <h2 className="text-xl font-bold text-lime-500">Cadastre-se</h2>
           <p className="text-center text-sm text-zinc-400">
             Faça seu cadastro.
           </p>
         </div>
 
-        <div className="flex flex-1 flex-col space-y-3">
+        <div className="flex flex-1 flex-col space-y-4">
           <div className="flex flex-col space-y-1">
             <label className="text-sm font-bold text-zinc-300">Username</label>
             <Input
@@ -65,7 +65,7 @@ export default function RegisterPage() {
               {...register("username")}
             />
             {errors.username?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
+              <p className="pl-1 text-red-600 text-xs font-bold">
                 {errors.username.message}
               </p>
             )}
@@ -80,7 +80,7 @@ export default function RegisterPage() {
               {...register("email")}
             />
             {errors.email?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
+              <p className="pl-1 text-red-600 text-xs font-bold">
                 {errors.email.message}
               </p>
             )}
@@ -95,7 +95,7 @@ export default function RegisterPage() {
                 {...register("password")}
               />
               {errors.password?.message && (
-                <p className="pl-1 text-red-500 text-sm font-bold">
+                <p className="pl-1 text-red-600 text-xs font-bold">
                   {errors.password.message}
                 </p>
               )}
@@ -113,7 +113,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-violet-700 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-violet-500 transition duration-150 ease-in"
+          className="bg-lime-500 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-lime-400 transition duration-150 ease-in"
         >
           {isSubmitting ? "Enviando..." : "Fazer cadastro"}
         </button>

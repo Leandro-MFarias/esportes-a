@@ -63,7 +63,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit(handleForm)}
       >
         <div className="self-start">
-          <h2 className="text-xl font-bold text-violet-700">Boas Vindas</h2>
+          <h2 className="text-xl font-bold text-lime-500">Boas Vindas</h2>
           <p className="text-center text-sm text-zinc-400">
             Faça Login com seu email e senha
           </p>
@@ -79,7 +79,7 @@ export default function LoginPage() {
               {...register("email")}
             />
             {errors.email?.message && (
-              <p className="pl-1 text-red-500 text-sm font-bold">
+              <p className="pl-1 text-red-600 text-sm font-bold">
                 {errors.email.message}
               </p>
             )}
@@ -95,7 +95,7 @@ export default function LoginPage() {
                 {...register("password")}
               />
               {errors.password?.message && (
-                <p className="pl-1 text-red-500 text-sm font-bold">
+                <p className="pl-1 text-red-600 text-sm font-bold">
                   {errors.password.message}
                 </p>
               )}
@@ -114,7 +114,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-violet-700 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-violet-500 transition duration-150 ease-in"
+            className="bg-lime-500 w-full py-2 rounded-2xl font-bold cursor-pointer hover:bg-lime-400 transition duration-150 ease-in"
           >
             {isSubmitting ? "Entrando..." : "Entrar"}
           </button>

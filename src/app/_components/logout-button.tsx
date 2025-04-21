@@ -11,7 +11,7 @@ export function LogoutButton() {
   return (
     <button
       onClick={handlelogout}
-      className="cursor-pointer hover:text-violet-600 transition duration-150 ease-in"
+      className="text-base cursor-pointer hover:text-lime-500 transition duration-150 ease-in"
     >
       Sair
     </button>

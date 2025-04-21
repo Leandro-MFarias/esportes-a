@@ -51,10 +51,10 @@ export async function Header() {
 
   return (
     <Sheet>
-      <Menubar className="px-4 mx-auto mt-2 max-w-7xl border-zinc-700 justify-between">
+      <Menubar className="px-4 mt-2 border-2 border-zinc-800 justify-between">
         <MenubarMenu>
           <MenubarTrigger>
-            <Link href="/" className="text-xl font-bold">
+            <Link href="/" className="text-xl text-lime-500 font-bold">
               Esportes A
             </Link>
           </MenubarTrigger>
@@ -79,9 +79,9 @@ export async function Header() {
             )}
           </MenubarTrigger>
           {user && (
-            <MenubarContent>
+            <MenubarContent className="w-36">
               <MenubarItem>
-                <SheetTrigger className="cursor-pointer hover:text-violet-600 transition duration-150 ease-in">
+                <SheetTrigger className="text-base cursor-pointer hover:text-lime-500 transition duration-150 ease-in">
                   Perfil
                 </SheetTrigger>
               </MenubarItem>
