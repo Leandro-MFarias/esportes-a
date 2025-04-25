@@ -5,7 +5,7 @@ import { usePostForm } from "../_context/useFormPost";
 import { ReactNode } from "react";
 
 interface ButtonProps {
-  variant: "default" | "outline" | null | undefined
+  variant: "default" | "outline" | "ghost" | null | undefined
   type?: string
   children: ReactNode
   postToEdit?: {
@@ -35,7 +35,7 @@ export function FormButton({ variant, type, postToEdit, children }: ButtonProps)
       className={`cursor-pointer ${
         type === "home"
           ? ""
-          : "w-[30px] h-7 absolute top-7 right-2 sm:right-3 text-muted-foreground"
+          : "p-0 gap-y-0"
       }`}
       onClick={handleEditingPost}
     >

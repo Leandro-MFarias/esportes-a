@@ -11,10 +11,21 @@ import {
 import Link from "next/link";
 import { useCategory } from "../_context/useCategoryContext";
 import { LikeButton } from "../post/_components/like-button";
-import { PencilIcon } from "lucide-react";
 import { DialogPost } from "./dialog-post";
 import { Category } from "@prisma/client";
-import { FormButton } from "./form-button";
+import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { DropDownMenu } from "./dropdown";
+import { AlertDialogDescription } from "@radix-ui/react-alert-dialog";
+import { DeleteButton } from "./delete-form-button";
 
 interface UserRole {
   role: string | undefined;
@@ -23,6 +34,8 @@ interface UserRole {
 }
 
 export function Posts({ role, userId, categories }: UserRole) {
+  const [postToDelete, setPostToDelete] = useState<string>("");
+  const [alertOpen, setAlertOpen] = useState(false);
   const { selectedCategory, allPosts } = useCategory();
 
   const postsToDisplay = allPosts || selectedCategory?.Posts;
@@ -39,22 +52,19 @@ export function Posts({ role, userId, categories }: UserRole) {
         {postsToDisplay.map((post) => (
           <Card key={post.id} className="relative w-[360px] 4x3:w-[434px]">
             {role === "GOD" && userId && (
-              <FormButton
-                variant={"outline"}
-                postToEdit={{
-                  id: post.id,
-                  title: post.title,
-                  content: post.content,
-                  mediaUrl: post.mediaUrl ?? "",
-                  existingCategory: post.category.name 
-                }}
-              >
-                <PencilIcon />
-              </FormButton>
+              <div className="absolute top-8 right-2 sm:right-3">
+                <DropDownMenu
+                  post={post}
+                  setPostToDelete={setPostToDelete}
+                  setAlertOpen={setAlertOpen}
+                />
+              </div>
             )}
             <Link href={`/post/${post.id}`}>
               <CardHeader>
-                <CardTitle className="text-3xl max-w-[370px]">{post.title}</CardTitle>
+                <CardTitle className="text-3xl max-w-[370px]">
+                  {post.title}
+                </CardTitle>
                 <CardDescription>{post.category.name}</CardDescription>
               </CardHeader>
               <CardContent className="leading-7 line-clamp-4 mt-1">
@@ -77,12 +87,26 @@ export function Posts({ role, userId, categories }: UserRole) {
         ))}
       </div>
 
-      {userId && (
-        <DialogPost
-          userId={userId}
-          categories={categories}
-        />
-      )}
+      <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Você tem certeza que quer deletar este post?
+            </AlertDialogTitle>
+            <AlertDialogDescription></AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <DeleteButton
+                postId={postToDelete}
+                onSuccess={() => setAlertOpen(false)}
+              />
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      {userId && <DialogPost userId={userId} categories={categories} />}
     </>
   );
 }
