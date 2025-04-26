@@ -1,6 +1,7 @@
 import { MessageCircleIcon } from "lucide-react";
 import { LikeButton } from "./like-button";
 import Image from "next/image";
+import { parseContent } from "@/utils/parseContent";
 
 export interface Post {
   id: string;
@@ -51,7 +52,7 @@ export function PostContent({ post }: PostProps) {
 
       {/* CONTENT */}
       <div className="flex flex-col space-y-4">
-        <p className="whitespace-pre-wrap">{post.content}</p>
+        <div className="whitespace-pre-wrap">{parseContent(post.content)}</div>
         {post.mediaUrl && (
           <Image
             src={post.mediaUrl}
