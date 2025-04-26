@@ -12,8 +12,8 @@ interface ButtonProps {
     id: string
     title: string;
     content: string;
-    mediaUrl: string;
-    existingCategory: string;
+    mediaUrl?: string | null;
+    category: string;
   };
 }
 

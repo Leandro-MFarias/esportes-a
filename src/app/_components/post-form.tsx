@@ -18,8 +18,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { deleteImage, uploadImage } from "@/supabase/storage/client";
+import Image from "next/image";
 
 interface PostFormProps {
   userId: string;
@@ -38,7 +39,6 @@ export function PostForm({
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<PostSchema>({
     resolver: zodResolver(postSchema),
@@ -50,73 +50,83 @@ export function PostForm({
       mediaUrl: "",
     },
   });
-  const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const router = useRouter();
 
-  const existingCategory = watch("existingCategory");
-  function getFilenameFromUrl(url: string) {
-    if (!url) return "";
-    const parts = url.split("/");
-    return parts[parts.length - 1];
-  }
+  useEffect(() => {
+    if (defaultValue?.mediaUrl) {
+      setPreviewUrl(defaultValue?.mediaUrl)
+    }
+  }, [defaultValue?.mediaUrl])
 
-  const currentImageName = defaultValue?.mediaUrl
-    ? getFilenameFromUrl(defaultValue.mediaUrl)
-    : "";
+  function handleShowImage(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  }
 
   async function handleForm(data: PostSchema) {
     try {
-      let mediaUrl = defaultValue?.mediaUrl || "";
+      let mediaUrl = defaultValue?.mediaUrl;
       const fileList = data.mediaUrl;
       const file = fileList?.[0];
 
-      if (file && defaultValue?.mediaUrl) {
-        console.log("Deletando imagem anterior: ", defaultValue.mediaUrl);
-
-        const bucketAndPathString = defaultValue.mediaUrl.split(
-          "/storage/v1/object/public/"
-        )[1];
-        if (bucketAndPathString) {
-          const firstSlashIndex = bucketAndPathString.indexOf("/");
-          const bucket = bucketAndPathString.slice(0, firstSlashIndex);
-          const path = bucketAndPathString.slice(firstSlashIndex + 1);
-
-          console.log("Deleting from bucket:", bucket, "path:", path);
-
-          const { error: deleteError } = await deleteImage(
-            defaultValue.mediaUrl
-          );
-
-          if (deleteError) {
-            console.error("Erro ao deletar imagem:", deleteError.message);
-            toast.error("Erro ao deletar imagem antiga.");
+      if (file instanceof File && file.size > 0) {
+        // Se existe um novo arquivo, aí sim:
+        if (defaultValue?.mediaUrl) {
+          console.log("Deletando imagem anterior: ", defaultValue.mediaUrl);
+  
+          const bucketAndPathString = defaultValue.mediaUrl.split(
+            "/storage/v1/object/public/"
+          )[1];
+          if (bucketAndPathString) {
+            const firstSlashIndex = bucketAndPathString.indexOf("/");
+            const bucket = bucketAndPathString.slice(0, firstSlashIndex);
+            const path = bucketAndPathString.slice(firstSlashIndex + 1);
+  
+            console.log("Deleting from bucket:", bucket, "path:", path);
+  
+            const { error: deleteError } = await deleteImage(
+              defaultValue.mediaUrl
+            );
+  
+            if (deleteError) {
+              console.error("Erro ao deletar imagem:", deleteError.message);
+              toast.error("Erro ao deletar imagem antiga.");
+              return; // se erro ao deletar, melhor abortar
+            } else {
+              console.log("Imagem anterior deletada com sucesso");
+            }
           } else {
-            console.log("Imagem anterior deletada com sucesso");
+            console.error("URL da imagem inválida:", defaultValue.mediaUrl);
+            return; // também aborta se URL inválida
           }
-        } else {
-          console.error("URL da imagem inválida:", defaultValue.mediaUrl);
         }
-      }
-
-      if (file) {
+  
+        // Agora sim faz upload da nova imagem
         const { imageUrl, error } = await uploadImage({
           file,
           bucket: "image-a",
           folder: "posts",
         });
-
+  
         if (error) {
           toast.error("Erro ao fazer o upload da imagem.");
           return;
         }
-
+  
         mediaUrl = imageUrl;
       }
+  
+      // Só chega aqui depois de tudo certo
       const result = await createPost(
         { ...data, id: defaultValue?.id, mediaUrl },
         userId
       );
-
+  
       if (result?.success) {
         toast.success(
           defaultValue?.id
@@ -149,10 +159,10 @@ export function PostForm({
           )}
         </div>
         <Select
+          value={defaultValue?.existingCategory}
           onValueChange={(value) =>
             setValue("existingCategory", value, { shouldValidate: true })
           }
-          value={existingCategory}
         >
           <SelectTrigger className="min-w-[164px]">
             <SelectValue placeholder="Existing category" />
@@ -180,39 +190,37 @@ export function PostForm({
         )}
       </div>
       <div>
-        <Textarea placeholder="Content" {...register("content")} />
+        <Textarea
+          placeholder="Content"
+          {...register("content")}
+          className="sm:min-h-80"
+        />
         {errors.content?.message && (
           <p className="text-red-600 text-sm font-bold">
             {errors.content.message}
           </p>
         )}
       </div>
-      <div>
+      <div className="relative space-y-4">
         <Input
           type="file"
           accept="image/*,video/*"
-          className="hidden"
+          className="z-50 absolute opacity-0 cursor-pointer"
           {...register("mediaUrl")}
-          ref={(e) => {
-            register("mediaUrl").ref(e);
-            imageInputRef.current = e;
-          }}
+          onChange={handleShowImage}
         />
-
-        <Button type="button" onClick={() => imageInputRef.current?.click()}>
+        <Button type="button" className="-z-10 inset-0 w-full">
           Escolher Imagem
         </Button>
-        {defaultValue?.mediaUrl && !watch("mediaUrl")?.[0] && (
-          <p className="text-sm text-muted-foreground">
-            Imagem atual: {currentImageName}
-          </p>
-        )}
 
-        {/* Display new selected file name */}
-        {watch("mediaUrl") && watch("mediaUrl")[0] && (
-          <p className="text-sm text-muted-foreground">
-            Novo arquivo selecionado: {watch("mediaUrl")[0].name}
-          </p>
+        {previewUrl && (
+          <Image
+            src={previewUrl}
+            width={128}
+            height={128}
+            alt="Prévia da imagem"
+            className="rounded-md w-auto max-h-28 object-contain"
+          />
         )}
       </div>
 

@@ -30,6 +30,8 @@ interface DropDownMenuProps {
 export function DropDownMenu({ post, setPostToDelete, setAlertOpen }: DropDownMenuProps) {
   const [openMenuPostId, setOpenMenuPostId] = useState<string | null>(null);
 
+  const { id, title, content, mediaUrl, category } = post
+
   return (
     <DropdownMenu
       open={openMenuPostId === post.id}
@@ -46,11 +48,11 @@ export function DropDownMenu({ post, setPostToDelete, setAlertOpen }: DropDownMe
           <FormButton
             variant={"ghost"}
             postToEdit={{
-              id: post.id,
-              title: post.title,
-              content: post.content,
-              mediaUrl: post.mediaUrl ?? "",
-              existingCategory: post.category.name,
+              id,
+              title,
+              content,
+              mediaUrl,
+              category: category.name,
             }}
           >
             Editar post
