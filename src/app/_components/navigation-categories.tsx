@@ -64,7 +64,7 @@ export function NavigationCatagory({
             <SelectValue placeholder="Categorias" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={"Todos"}>Todos</SelectItem>
+            <SelectItem value={"Todos"}>Recentes</SelectItem>
             {categories.map((category) => (
               <SelectItem key={category.id} value={category.name}>
                 {category.name}
