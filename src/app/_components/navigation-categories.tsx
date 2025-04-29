@@ -60,7 +60,7 @@ export function NavigationCatagory({
     >
       <div className="block md:hidden">
         <Select onValueChange={handleSelectChange}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px]" aria-label="Categorias">
             <SelectValue placeholder="Categorias" />
           </SelectTrigger>
           <SelectContent>
