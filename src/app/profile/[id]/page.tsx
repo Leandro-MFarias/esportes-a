@@ -47,6 +47,6 @@ export default async function ProfilePage({ params }: ParamsProps) {
     );
   } catch (error) {
     console.error("Erro profile", error);
-    return <div>Alguma coisa dei errado, tente novamente mais tarde</div>;
+    return <div>Alguma coisa deu errado, tente novamente mais tarde 😓</div>;
   }
 }
