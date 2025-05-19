@@ -26,7 +26,7 @@ interface PostProps {
 
 export function PostContent({ post }: PostProps) {
   return (
-    <section className="flex flex-col border border-zinc-800 max-w-6xl py-5 px-8 mx-auto space-y-4">
+    <section className="flex flex-col border border-zinc-800 max-w-6xl py-5 px-8 mx-auto space-y-4 rounded-xl">
       {/* QUEM E QUANDO */}
       <div className="self-end flex space-x-2 text-muted-foreground text-sm pl-2">
         <p>{post.User.userName}</p>
@@ -52,7 +52,7 @@ export function PostContent({ post }: PostProps) {
 
       {/* CONTENT */}
       <div className="flex flex-col space-y-4">
-        <div className="whitespace-pre-wrap">{parseContent(post.content)}</div>
+        <div className="whitespace-pre-wrap text-zinc-300">{parseContent(post.content)}</div>
         {post.mediaUrl && (
           <Image
             src={post.mediaUrl}

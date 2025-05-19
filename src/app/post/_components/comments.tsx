@@ -35,7 +35,7 @@ export function Comments({ postId, initialComments }: CommentsProps) {
   }
 
   return (
-    <section className="border border-zinc-800 max-w-6xl py-5  px-8 mx-auto mb-10 space-y-6">
+    <section className="border border-zinc-800 max-w-6xl py-5  px-8 mx-auto mb-10 space-y-6 rounded-xl">
       <div className="space-y-3">
         <h2 className="text-3xl font-semibold">Comentários</h2>
         <CommentForm postId={postId} commentAdded={handleCommentAdded} />
@@ -68,7 +68,7 @@ export function Comments({ postId, initialComments }: CommentsProps) {
                   </p>
                 </div>
                 <div className="pl-12">
-                  <p className="text-sm">{comment.content}</p>
+                  <p className="text-sm text-zinc-300">{comment.content}</p>
                 </div>
               </div>
             </div>

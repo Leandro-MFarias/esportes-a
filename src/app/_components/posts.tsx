@@ -67,7 +67,7 @@ export function Posts({ role, userId, categories }: UserRole) {
                 </CardTitle>
                 <CardDescription>{post.category.name}</CardDescription>
               </CardHeader>
-              <CardContent className="leading-7 line-clamp-4 mt-1">
+              <CardContent className="leading-7 line-clamp-4 mt-1 text-zinc-300">
                 {post.content}
               </CardContent>
             </Link>
