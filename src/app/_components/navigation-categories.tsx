@@ -96,10 +96,10 @@ export function NavigationCatagory({
                   size="sm"
                   className={`font-semibold min-w-24 rounded-md cursor-pointer py-3 ${
                     selectedCategory?.id !== category.id &&
-                    ""
+                    "text-muted-foreground hover:text-white"
                   }`}
                 >
-                  <CategoryColor category={category} />
+                  {category.name}
                 </Button>
               </li>
             ))}
