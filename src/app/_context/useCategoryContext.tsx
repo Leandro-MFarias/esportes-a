@@ -16,6 +16,7 @@ export type CategoryWithPosts = Prisma.CategoryGetPayload<{
         category: {
           select: {
             name: true;
+            color: true;
           };
         };
       };
@@ -32,6 +33,7 @@ export interface Post {
   viewCount: number;
   category: {
     name: string;
+    color: string | null;
   };
 }
 

@@ -2,6 +2,7 @@ import { MessageCircleIcon } from "lucide-react";
 import { LikeButton } from "./like-button";
 import Image from "next/image";
 import { parseContent } from "@/utils/parseContent";
+import { CategoryColor } from "@/app/_components/category-colors";
 
 export interface Post {
   id: string;
@@ -10,7 +11,10 @@ export interface Post {
   mediaUrl: string | null;
   likeCount: number;
   createdAt: Date;
-  category: { name: string };
+  category: {
+    name: string;
+    color: string | null;
+  };
   Comments: {
     id: string;
     content: string;
@@ -47,12 +51,15 @@ export function PostContent({ post }: PostProps) {
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
           {post.title}
         </h1>
-        <p className="pl-1.5 text-muted-foreground">{post.category.name}</p>
+
+        <CategoryColor category={post.category} />
       </div>
 
       {/* CONTENT */}
       <div className="flex flex-col space-y-4">
-        <div className="whitespace-pre-wrap text-zinc-300">{parseContent(post.content)}</div>
+        <div className="whitespace-pre-wrap text-white/80">
+          {parseContent(post.content)}
+        </div>
         {post.mediaUrl && (
           <Image
             src={post.mediaUrl}

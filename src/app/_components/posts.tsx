@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -26,6 +25,7 @@ import {
 import { DropDownMenu } from "./dropdown";
 import { AlertDialogDescription } from "@radix-ui/react-alert-dialog";
 import { DeleteButton } from "./delete-form-button";
+import { CategoryColor } from "./category-colors";
 
 interface UserRole {
   role: string | undefined;
@@ -65,9 +65,10 @@ export function Posts({ role, userId, categories }: UserRole) {
                 <CardTitle className="text-3xl max-w-[370px]">
                   {post.title}
                 </CardTitle>
-                <CardDescription>{post.category.name}</CardDescription>
+                {/* DESCRIPTION CATEGORY */}
+                <CategoryColor category={post.category} />
               </CardHeader>
-              <CardContent className="leading-7 line-clamp-4 mt-1 text-zinc-300">
+              <CardContent className="leading-7 line-clamp-4 mt-1 text-white/80">
                 {post.content}
               </CardContent>
             </Link>

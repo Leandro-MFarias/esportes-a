@@ -51,13 +51,11 @@ export function NavigationCatagory({
   }
 
   function categoryButtonAll() {
-    return allPosts === null ? "secondary" : "default"
+    return allPosts === null ? "secondary" : "default";
   }
 
   return (
-    <nav
-      className={`flex items-center mx-0 `}
-    >
+    <nav className={`flex items-center mx-0 `}>
       <div className="block md:hidden">
         <Select onValueChange={handleSelectChange}>
           <SelectTrigger className="w-[180px]" aria-label="Categorias">
@@ -82,7 +80,9 @@ export function NavigationCatagory({
                 onClick={handleAllPostCLick}
                 variant={categoryButtonAll()}
                 size="sm"
-                className={`font-semibold min-w-24 rounded-md cursor-pointer py-4 ${allPosts === null && "text-white"}`}
+                className={`font-semibold min-w-24 rounded-md cursor-pointer py-4 ${
+                  allPosts === null && "text-muted-foreground hover:text-white"
+                }`}
               >
                 Recentes
               </Button>
@@ -93,7 +93,10 @@ export function NavigationCatagory({
                   onClick={() => handleCategoryClick(category)}
                   variant={categoryButtonVariant(category)}
                   size="sm"
-                  className={`font-semibold min-w-24 rounded-md cursor-pointer py-3 ${selectedCategory?.id !== category.id && "text-white"}`}
+                  className={`font-semibold min-w-24 rounded-md cursor-pointer py-3 ${
+                    selectedCategory?.id !== category.id &&
+                    "text-muted-foreground hover:text-white"
+                  }`}
                 >
                   {category.name}
                 </Button>

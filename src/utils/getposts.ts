@@ -17,6 +17,7 @@ export async function getPostData(id: string) {
       category: {
         select: {
           name: true,
+          color: true,
         },
       },
       Comments: {
@@ -61,6 +62,7 @@ export async function getCategoriesData() {
           category: {
             select: {
               name: true,
+              color: true,
             },
           },
         },
