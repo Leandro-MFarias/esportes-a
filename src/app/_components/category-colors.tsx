@@ -8,11 +8,11 @@ interface categoryColorProps {
 }
 
 const colors: Record<string, string> = {
-  sky: "text-sky-600",
-  lime: "text-lime-600",
-  amber: "text-amber-300",
+  sky: "text-sky-400",
+  lime: "text-lime-400",
+  amber: "text-yellow-300",
   orange: "text-orange-500",
-  teal: "text-teal-600",
+  teal: "text-teal-500",
 };
 
 export function CategoryColor({ category }: categoryColorProps) {

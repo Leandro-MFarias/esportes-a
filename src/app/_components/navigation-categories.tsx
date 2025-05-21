@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CategoryColor } from "./category-colors";
 
 interface NavigationCatagoriesProps {
   categories: CategoryWithPosts[];
@@ -65,7 +66,7 @@ export function NavigationCatagory({
             <SelectItem value={"Todos"}>Recentes</SelectItem>
             {categories.map((category) => (
               <SelectItem key={category.id} value={category.name}>
-                {category.name}
+                <CategoryColor category={category} />
               </SelectItem>
             ))}
           </SelectContent>
@@ -95,10 +96,10 @@ export function NavigationCatagory({
                   size="sm"
                   className={`font-semibold min-w-24 rounded-md cursor-pointer py-3 ${
                     selectedCategory?.id !== category.id &&
-                    "text-muted-foreground hover:text-white"
+                    ""
                   }`}
                 >
-                  {category.name}
+                  <CategoryColor category={category} />
                 </Button>
               </li>
             ))}
