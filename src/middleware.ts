@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { isSessionValid } from "./app/(auth)/_services/session";
 
 export const config = {
-  matcher: "/((?!_next/static|_next/image|favicon.ico).*)",
+  matcher:
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(png|jpg|jpeg|svg|webp|ico|css|js|json)).*)",
 };
 
 const publicRoutes = [
@@ -25,10 +26,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname.endsWith('.xml') || pathname.endsWith('.txt')) {
+  if (pathname.endsWith(".xml") || pathname.endsWith(".txt")) {
     return NextResponse.next();
   }
-  
+
   const session = await isSessionValid();
   if (!session) {
     return NextResponse.redirect(new URL("/login", req.url));
