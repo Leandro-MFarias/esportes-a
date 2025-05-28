@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isSessionValid } from "./app/(auth)/_services/session";
 
 export const config = {
-  matcher:
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(png|jpg|jpeg|svg|webp|ico|css|js|json)).*)",
+  matcher: "/((?!api|_next|favicon.ico).*)",
 };
 
 const publicRoutes = [
@@ -17,6 +16,14 @@ const publicRoutes = [
 
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
+
+  const isStaticFile = /\.(png|jpg|jpeg|svg|webp|ico|css|js|json)$/i.test(
+    pathname
+  );
+
+  if (isStaticFile) {
+    return NextResponse.next();
+  }
 
   if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
