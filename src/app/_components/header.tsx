@@ -21,6 +21,7 @@ import { LogoutButton } from "./logout-button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "../profile/_components/edit-profile";
 import { ProfileAvatar } from "../profile/_components/profile-avatar";
+import Image from "next/image";
 
 const prisma = new PrismaClient();
 
@@ -55,7 +56,7 @@ export async function Header() {
         <MenubarMenu>
           <MenubarTrigger>
             <Link href="/" className="text-xl text-lime-500 font-bold">
-              Esportes A
+              <Image src="/orange.png" width={200} height={180} alt="logo" />
             </Link>
           </MenubarTrigger>
         </MenubarMenu>
