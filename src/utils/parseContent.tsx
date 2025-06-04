@@ -10,7 +10,7 @@ export function parseContent(content: string) {
           key={index}
           src={part}
           alt="image"
-          className="max-w-96 rounded-md"
+          className="w-80 sm:max-w-96 rounded-md"
         />
       );
     }
