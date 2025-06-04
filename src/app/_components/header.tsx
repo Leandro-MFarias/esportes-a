@@ -56,7 +56,14 @@ export async function Header() {
         <MenubarMenu>
           <MenubarTrigger>
             <Link href="/" className="text-xl text-lime-500 font-bold">
-              <Image src="/orange.png" width={200} height={180} alt="logo" />
+              <Image
+                src="/orange.png"
+                alt="logo"
+                layout="responsive"
+                width={100}
+                height={50}
+                sizes="(min-width: 400px) 200px, 180px"
+              />
             </Link>
           </MenubarTrigger>
         </MenubarMenu>
@@ -64,7 +71,7 @@ export async function Header() {
         <MenubarMenu>
           <MenubarTrigger>
             {user ? (
-              <div className="flex gap-2 cursor-pointer">
+              <div className="flex items-center gap-2 cursor-pointer">
                 <Avatar>
                   <AvatarImage
                     src={`${
@@ -72,8 +79,7 @@ export async function Header() {
                     }`}
                   />
                 </Avatar>
-
-                <p className="text-lg font-semibold">{user.userName}</p>
+                <p className=" sm:text-lg font-semibold">{user.userName}</p>
               </div>
             ) : (
               <Link href="/login">Fazer login</Link>
