@@ -18,7 +18,7 @@ export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("1d")
+    .setExpirationTime("30d")
     .sign(encodedKey);
 }
 
@@ -43,7 +43,7 @@ export async function createSession(userId: string) {
 
   if (!user) throw new Error("user nao encontrado")
 
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ userId, expiresAt, role: user.role });
 
   const cookieStore = await cookies();
@@ -83,7 +83,7 @@ export async function updateSession() {
     return null;
   }
 
-  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
   const cookieStore = await cookies();
   cookieStore.set("session", session, {
